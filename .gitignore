@@ -1,1 +1,7 @@
+#Project files from Jetbrains IDE
 .idea/*
+*/.idea/*
+
+#Java files
+Server/*/out
+Server/out
