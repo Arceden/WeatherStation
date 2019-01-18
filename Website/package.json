@@ -1,0 +1,29 @@
+{
+  "name": "weatherdashboard",
+  "version": "1.0.0",
+  "description": "This part of a project for the Hanze University of Applied Siences",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arceden/WeatherStation.git"
+  },
+  "keywords": [
+    "weather",
+    "data",
+    "project",
+    "hanze"
+  ],
+  "author": "Arnold Buining",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Arceden/WeatherStation/issues"
+  },
+  "homepage": "https://github.com/Arceden/WeatherStation#readme",
+  "devDependencies": {
+    "gulp": "^4.0.0",
+    "gulp-sass": "^4.0.2"
+  }
+}

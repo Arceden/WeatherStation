@@ -5,3 +5,10 @@
 #Java files
 Server/*/out
 Server/out
+
+#NodeJS files
+node_modules/
+*/package-lock.json
+
+#Website build files
+Website/build/css/*.css
