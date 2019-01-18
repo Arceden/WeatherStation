@@ -4,7 +4,8 @@
   "description": "This part of a project for the Hanze University of Applied Siences",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src -d lib"
   },
   "repository": {
     "type": "git",
@@ -23,6 +24,8 @@
   },
   "homepage": "https://github.com/Arceden/WeatherStation#readme",
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
     "gulp": "^4.0.0",
     "gulp-sass": "^4.0.2"
   }
