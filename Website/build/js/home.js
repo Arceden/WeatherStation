@@ -1,0 +1,1 @@
+(function(){switch(window.location.hash){case"#login":open_popup("login");break;default:}var a=new Listener,b=new PopupHandler;a.newElements("login",document.getElementsByClassName("call_login"),new PopupHandler().newPopup(document.getElementById("login"))),a.applyHandler("login")})();

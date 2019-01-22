@@ -4,6 +4,6 @@
     //The actual web page
     include('templates/home.html');
     include('templates/forms/login.html');
-    include('templates/footer.html');
+    include('templates/footer_home.html');
 
 ?>

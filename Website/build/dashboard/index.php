@@ -24,6 +24,6 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/templates/forms/user_create.html');
 include_once($_SERVER['DOCUMENT_ROOT'].'/templates/forms/user_edit.html');
 include_once($_SERVER['DOCUMENT_ROOT'].'/templates/forms/user_renew_password.html');
 
-include_once($_SERVER['DOCUMENT_ROOT'].'/templates/footer.html');
+include_once($_SERVER['DOCUMENT_ROOT'].'/templates/footer_dashboard.html');
 
 ?>
