@@ -1,4 +1,12 @@
 body {
     margin: 0;
-    font-family: Verdana,Geneva,sans-serif; 
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+//States
+.invisible {
+    display: none;
+}
+.visible {
+    display: block;
 }

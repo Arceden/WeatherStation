@@ -1,3 +1,21 @@
+/*
+*   VARIABLES
+*/
+
+//General
+$submit_color: #1161ed;
+$submit_color_hover: #4082f5;
+$input_default_color: #e4e4e4;
+$input_select_color: #fff;
+
+//Dark UI
+$d_ui_color_1: #666;
+$d_text_color_1: #FFF;
+
+/**
+    Components
+**/
+
 //Text fields
 h1 {
 
@@ -15,26 +33,97 @@ a {
 
 }
 
-//Input fields
-input {
+.dark_ui {
+    h1 {
+
+    }
+
+    h2 {
+        color: $d_text_color_1;
+    }
+
+    label {
+        color: $d_text_color_1;
+    }
+}
+
+//Forms
+form {
+    label {
+        font-size: 11pt;
+    }
+
+    input {
+        appearance: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
     
+        width: 100%;
+        border: none;
+        border-radius: 30px;
+        padding: 10px 20px;
+        box-sizing: border-box;
+        
+    }
+    input[type='email'], input[type='password'] {
+        background: $input_default_color;
+    }
+    input[type='submit'] {
+        background-color: $submit_color;
+        color: white;
+        font-weight: 600;
+        transition: background-color 0.25s;
+    }
+    input[type='submit']:hover {
+        background-color: #4082f5;
+        cursor: pointer;
+    }
+    input:focus {
+        outline: none;
+        background: $input_select_color;
+    }
 }
 
 //Popups
 .popup {
     position: fixed;
+    // top: 15%;
+    padding-top: 10%;
+    top: 0;
     width: 100%;
 
     .screen {
+        position: relative;
         margin: 0 auto;
-        padding: 20px;
+        padding: 40px;
 
-        width: 300px;
+        width: 400px;
 
-        border: solid 1px black;
+        box-sizing: border-box;
+        background: $d_ui_color_1;
+        box-shadow: 0px 0px 10px 0px $d_ui_color_1;
+
+        border-bottom-right-radius: 20px;
+        border-top-left-radius: 20px;
+
+        .close {
+            color: $d_text_color_1;
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 5px;
+            background: #00000021;
+            width: 30px;
+            text-align: center;
+            border-bottom-left-radius: 10px;
+            cursor: pointer;
+        }
 
         h2 {
             text-align: center;
+            border-bottom: solid 1px $d_text_color_1;
+            margin: 0 0 30px;
+            box-shadow: 0px 5px 13px -10px $d_text_color_1;
         }
     }
 }
