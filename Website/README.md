@@ -18,6 +18,7 @@ Other commands which may be of use:
 Run babel builder
 ```
 >npm run build
+>gulp minify
 ```
 
 Run single Sass builder
