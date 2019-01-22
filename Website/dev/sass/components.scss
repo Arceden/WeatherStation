@@ -11,6 +11,7 @@ $input_select_color: #fff;
 //Dark UI
 $d_ui_color_1: #666;
 $d_text_color_1: #FFF;
+$d_text_color_2: #DDD;
 
 /**
     Components
@@ -40,6 +41,10 @@ a {
 
     h2 {
         color: $d_text_color_1;
+    }
+
+    p {
+        color: $d_text_color_2;
     }
 
     label {
@@ -124,6 +129,10 @@ form {
             border-bottom: solid 1px $d_text_color_1;
             margin: 0 0 30px;
             box-shadow: 0px 5px 13px -10px $d_text_color_1;
+        }
+        p {
+            font-size: 10pt;
+            margin: -10px 0 20px;
         }
     }
 }

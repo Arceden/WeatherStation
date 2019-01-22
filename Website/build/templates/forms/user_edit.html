@@ -1,0 +1,22 @@
+<div id="user_edit" class="popup field dark_ui invisible">
+    <div class="screen">
+        <div class="close">x</div>
+        <form action="/user_edit.php" method="POST">
+            <h2>Modify User</h2>
+            
+            <label for="user_edit_firstname_input">Firstname</label><br/>
+            <input name="firstname" type="text" id="user_edit_firstname_input" placeholder="John"><br/><br/>
+
+            <label for="user_edit_surname_input">Surname</label><br/>
+            <input name="surname" type="text" id="user_edit_surname_input" placeholder="Doe"><br/><br/>
+
+            <label for="user_edit_email_input">E-Mail</label><br/>
+            <input name="email" type="email" id="user_edit_email_input" placeholder="john@example.com"/><br/><br/>
+
+            <label for="user_edit_password_input">Password</label><br/>
+            <input name="password" type="password" id="user_edit_password_input"/><br/><br/><br/>
+
+            <input name="submit" type="submit" id="user_edit_submit" value="Edit User"/>
+        </form>
+    </div>
+</div>

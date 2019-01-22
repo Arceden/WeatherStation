@@ -1,59 +1,55 @@
 /**
  * Only edit the Javascript files in ./dev/js/.
  * All Javascript files in ./build/js/ may be overwritten.
- * 
- * TODO: 
- *  Make classes, this is just a mess. A working mess atleast.
+ * Arnold Buining
  */
 
 (function(){
 
-    if(window.location.hash=='#login'){
-        open_popup('login');
-    }
+  //Check website location
+  switch(window.location.hash){
+    case '#login':
+      open_popup('login');
+      break;
+    case '#user_create':
+      open_popup('user_create');
+      break;
+    default:
+      break;
+  }
 
-    /**
-     * This handles the calls for the popups and to close the popups
-     */
-    var popup_state = false;
-    var login_elements = document.getElementsByClassName("call_login");
-    //Assign the event listener to all elements
-    for(var x=0;x<login_elements.length;x++){
-        login_elements[x].addEventListener("click", function(){
-            if(popup_state==false){
-                open_popup('login');
-            }
-        });
-    }
+  //Initialize the listener and popuphandler
+  var listen = new Listener();
+  var phandler = new PopupHandler();
 
-    var close_popup_elements = document.getElementsByClassName("close");
-    //Assign the event listener to all elements
-    for(var x=0;x<close_popup_elements.length;x++){
-        close_popup_elements[x].addEventListener("click", function(){
-            close_popup('login')
-        })
-    }
+  //Add all required elements
+  listen.newElements(
+    'login',
+    document.getElementsByClassName("call_login"), 
+    new PopupHandler().newPopup(document.getElementById('login'))
+  );
 
+  listen.newElements(
+    'user_create',
+    document.getElementsByClassName("call_user_create"),
+    new PopupHandler().newPopup(document.getElementById('user_create'))
+  );
 
-    function open_popup(type){
-        if(type=='login'){
-            popup_state=true;
-            document.getElementsByClassName("popup")[0].classList.remove('invisible');
-            window.location.hash = 'login'
-        }
-    }
+  listen.newElements(
+      'user_edit',
+      document.getElementsByClassName('call_user_edit'),
+      new PopupHandler().newPopup(document.getElementById('user_edit'))
+  );
 
-    function close_popup(type){
-        switch(type){
-            case 'login':
-                popup_state=false;
-                document.getElementsByClassName("popup")[0].classList.add('invisible');
-                window.location.hash = '';
-                break;
-            default:
-                console.warn("Popup type not found");
-        }
-    }
+  listen.newElements(
+      'user_renew',
+      document.getElementsByClassName('call_new_password'),
+      new PopupHandler().newPopup(document.getElementById('user_renew_password'))
+  )
 
+  listen.applyHandler('login');
+  listen.applyHandler('user_create');
+  listen.applyHandler('user_edit');
+    listen.applyHandler('user_renew');
 
 })();
