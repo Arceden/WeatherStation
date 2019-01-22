@@ -1,0 +1,40 @@
+//Text fields
+h1 {
+
+}
+h2 {
+
+}
+h3 {
+
+}
+p {
+
+}
+a {
+
+}
+
+//Input fields
+input {
+    
+}
+
+//Popups
+.popup {
+    position: fixed;
+    width: 100%;
+
+    .screen {
+        margin: 0 auto;
+        padding: 20px;
+
+        width: 300px;
+
+        border: solid 1px black;
+
+        h2 {
+            text-align: center;
+        }
+    }
+}
