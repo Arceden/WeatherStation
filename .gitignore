@@ -11,4 +11,3 @@ Server/out
 node_modules/
 
 #Website build files
-Website/build/css/*.css

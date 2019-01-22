@@ -1,0 +1,73 @@
+/*
+*   VARIABLES
+*/
+/**
+    Components
+**/
+.dark_ui h2 {
+  color: #FFF; }
+
+.dark_ui label {
+  color: #FFF; }
+
+form label {
+  font-size: 11pt; }
+
+form input {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+  box-sizing: border-box; }
+
+form input[type='email'], form input[type='password'] {
+  background: #e4e4e4; }
+
+form input[type='submit'] {
+  background-color: #1161ed;
+  color: white;
+  font-weight: 600;
+  transition: background-color 0.25s; }
+
+form input[type='submit']:hover {
+  background-color: #4082f5;
+  cursor: pointer; }
+
+form input:focus {
+  outline: none;
+  background: #fff; }
+
+.popup {
+  position: fixed;
+  padding-top: 10%;
+  top: 0;
+  width: 100%; }
+  .popup .screen {
+    position: relative;
+    margin: 0 auto;
+    padding: 40px;
+    width: 400px;
+    box-sizing: border-box;
+    background: #666;
+    box-shadow: 0px 0px 10px 0px #666;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 20px; }
+    .popup .screen .close {
+      color: #FFF;
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 5px;
+      background: #00000021;
+      width: 30px;
+      text-align: center;
+      border-bottom-left-radius: 10px;
+      cursor: pointer; }
+    .popup .screen h2 {
+      text-align: center;
+      border-bottom: solid 1px #FFF;
+      margin: 0 0 30px;
+      box-shadow: 0px 5px 13px -10px #FFF; }
