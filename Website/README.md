@@ -13,3 +13,14 @@ To automate the proces of converting the .scss files to .css into the build fold
 ```
 >gulp sass:watch
 ```
+
+Other commands which may be of use:
+Run babel builder
+```
+>npm run build
+```
+
+Run single Sass builder
+```
+>npm run sass
+```

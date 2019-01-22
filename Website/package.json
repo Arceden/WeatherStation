@@ -4,8 +4,8 @@
   "description": "This part of a project for the Hanze University of Applied Siences",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel src -d lib"
+    "sass": "./node_modules/.bin/gulp sass",
+    "build": "./node_modules/.bin/babel dev/js/ --out-dir build/js/"
   },
   "repository": {
     "type": "git",
