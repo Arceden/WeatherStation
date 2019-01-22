@@ -50,6 +50,6 @@
   listen.applyHandler('login');
   listen.applyHandler('user_create');
   listen.applyHandler('user_edit');
-    listen.applyHandler('user_renew');
+  listen.applyHandler('user_renew');
 
 })();

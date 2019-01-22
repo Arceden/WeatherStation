@@ -74,6 +74,6 @@ form input:focus {
       border-bottom: solid 1px #FFF;
       margin: 0 0 30px;
       box-shadow: 0px 5px 13px -10px #FFF; }
-    .popup .screen p {
+    .popup .screen p.message {
       font-size: 10pt;
       margin: -10px 0 20px; }
