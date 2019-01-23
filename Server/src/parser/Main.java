@@ -3,6 +3,7 @@ package parser;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import storage.StorageConverter;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.Attributes;
@@ -10,6 +11,9 @@ import org.xml.sax.Attributes;
 
 public class Main {
     public static void main(String[] args) {
+
+        final StorageConverter sc = new StorageConverter();
+
         try {
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser parser = factory.newSAXParser();
@@ -49,65 +53,93 @@ public class Main {
 
                 public void characters(char[] ch, int start, int length) throws SAXException {
                     if (bstn) {
-                        System.out.println("Station: " + new String(ch, start, length));
+                        String vstn = new String(ch, start, length);
+                        System.out.println("Station: " + vstn);
+                        sc.setStn(Integer.parseInt(vstn));
                         bstn = false;
                     }
                     if (bdate) {
-                        System.out.println("Datum: " + new String(ch, start, length));
+                        String vdate = new String(ch, start, length);
+                        System.out.println("Datum: " + vdate);
+                        sc.setDate(vdate);
                         bdate = false;
                     }
                     if (btime) {
-                        System.out.println("Tijd: " + new String(ch, start, length));
+                        String vtime = new String(ch, start, length);
+                        System.out.println("Tijd: " + vtime);
+                        sc.setTime(vtime);
                         btime = false;
                     }
                     if (btemp) {
-                        System.out.println("Temperatuur: " + new String(ch, start, length));
+                        String vtemp = new String(ch, start, length);
+                        System.out.println("Temperatuur: " + vtemp);
+                        sc.setTemp(Float.parseFloat(vtemp));
                         btemp = false;
                     }
                     if (bdewp) {
-                        System.out.println("Dauwpunt: " + new String(ch, start, length));
+                        String vdewp = new String(ch, start, length);
+                        System.out.println("Dauwpunt: " + vdewp);
+                        sc.setDewp(Float.parseFloat(vdewp));
                         bdewp = false;
                     }
                     if (bstp) {
-                        System.out.println("Luchtdruk op stationsniveau: " + new String(ch, start, length));
+                        String vstp = new String(ch, start, length);
+                        System.out.println("Luchtdruk op stationsniveau: " + vstp);
+                        sc.setStp(Float.parseFloat(vstp));
                         bstp = false;
                     }
                     if (bslp) {
-                        System.out.println("Luchtdruk op zeeniveau: " + new String(ch, start, length));
+                        String vslp = new String(ch, start, length);
+                        System.out.println("Luchtdruk op zeeniveau: " + vslp);
+                        sc.setSlp(Float.parseFloat(vslp));
                         bslp = false;
                     }
                     if (bvisib) {
-                        System.out.println("Zichtbaarheid: " + new String(ch, start, length));
+                        String vvisib = new String(ch, start, length);
+                        System.out.println("Zichtbaarheid: " + vvisib);
+                        sc.setVisib(Float.parseFloat(vvisib));
                         bvisib = false;
                     }
                     if (bwdsp) {
-                        System.out.println("Windsnelheid: " + new String(ch, start, length));
+                        String vwdsp = new String(ch, start, length);
+                        System.out.println("Windsnelheid: " + vwdsp);
+                        sc.setWdsp(Float.parseFloat(vwdsp));
                         bwdsp = false;
                     }
                     if (bprcp) {
-                        System.out.println("Neerslag: " + new String(ch, start, length));
+                        String vprcp = new String(ch, start, length);
+                        System.out.println("Neerslag: " + vprcp);
+                        sc.setPrcp(Float.parseFloat(vprcp));
                         bprcp = false;
                     }
                     if (bsndp) {
-                        System.out.println("Sneeuw: " + new String(ch, start, length));
+                        String vsndp = new String(ch, start, length);
+                        System.out.println("Sneeuw: " + vsndp);
+                        sc.setSndp(Float.parseFloat(vsndp));
                         bsndp = false;
                     }
                     if (bfrshtt) {
                         String a = new String(ch, start, length);
+                        String vfrshht = "00"+a;
                         if (a.charAt(0)=="1".charAt(0)) System.out.println("Het heeft gevroren");
                         if (a.charAt(1)=="1".charAt(0)) System.out.println("Het heeft geregend");
                         if (a.charAt(2)=="1".charAt(0)) System.out.println("Het heeft gesneeuwd");
                         if (a.charAt(3)=="1".charAt(0)) System.out.println("Het heeft gehageld");
                         if (a.charAt(4)=="1".charAt(0)) System.out.println("Er was onweer");
                         if (a.charAt(5)=="1".charAt(0)) System.out.println("Er was een tornado of windhoos");
+                        sc.setFrshht(Byte.parseByte(vfrshht,2));
                         bfrshtt = false;
                     }
                     if (bcldc) {
-                        System.out.println("Bewolking: " + new String(ch, start, length));
+                        String vcldc = new String(ch, start, length);
+                        System.out.println("Bewolking: " + vcldc);
+                        sc.setCldc(Float.parseFloat(vcldc));
                         bcldc = false;
                     }
                     if (bwinddir) {
-                        System.out.println("Windrichting: " + new String(ch, start, length));
+                        String vwnddir = new String(ch, start, length);
+                        System.out.println("Windrichting: " + vwnddir);
+                        sc.setWnddir(Short.parseShort(vwnddir));
                         bwinddir = false;
                     }
                 }
@@ -117,6 +149,9 @@ public class Main {
         } catch (Exception e) {
             System.out.println(e);
         }
+
+        sc.process();
+
     }
 }
 
