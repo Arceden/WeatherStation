@@ -32,7 +32,7 @@ public class Main {
                         bsndp = false,
                         bfrshtt = false,
                         bcldc = false,
-                        bwinddir = false;
+                        bwnddir = false;
 
                 public void startElement(String uri, String localname, String qName, Attributes attributes) throws SAXException {
                     if (qName.equals("STN")) bstn = true;
@@ -48,7 +48,7 @@ public class Main {
                     if (qName.equals("SNDP")) bsndp = true;
                     if (qName.equals("FRSHTT")) bfrshtt = true;
                     if (qName.equals("CLDC")) bcldc = true;
-                    if (qName.equals("WINDDIR")) bwinddir = true;
+                    if (qName.equals("WINDDIR")) bwnddir = true;
                 }
 
                 public void characters(char[] ch, int start, int length) throws SAXException {
@@ -136,11 +136,11 @@ public class Main {
                         sc.setCldc(Float.parseFloat(vcldc));
                         bcldc = false;
                     }
-                    if (bwinddir) {
+                    if (bwnddir) {
                         String vwnddir = new String(ch, start, length);
                         System.out.println("Windrichting: " + vwnddir);
                         sc.setWnddir(Short.parseShort(vwnddir));
-                        bwinddir = false;
+                        bwnddir = false;
                     }
                 }
             };

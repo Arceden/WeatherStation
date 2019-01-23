@@ -11,6 +11,7 @@ import java.util.Date;
 
 public class StorageConverter {
 
+    private int row_id;
     private int stn;
     private String date;
     private String time;
@@ -29,11 +30,8 @@ public class StorageConverter {
 
     public StorageConverter(){
 
-        float sndp = -999.99f;
-        String date = "2009-09-13";
-        String time = "15:59:46";
-        this.timestamp = this.getTimestamp(date, time);
-
+        this.setRow_id(25403);
+        System.out.println("Initialized StorageConverter");
     }
 
     /**
@@ -41,7 +39,8 @@ public class StorageConverter {
      */
     public void process(){
 
-        this.getTimestamp(this.date, this.time);
+        setTimestamp(this.getTimestamp(getDate(), getTime()));
+        System.out.println(this.wnddir);
 
         try {
             DataOutputStream out = new DataOutputStream(
@@ -52,6 +51,7 @@ public class StorageConverter {
 
             try {
                 //Store all data
+                out.writeInt(this.row_id);
                 out.writeInt(this.stn);
                 out.writeLong(this.timestamp);
                 out.writeFloat(this.temp);
@@ -85,7 +85,6 @@ public class StorageConverter {
     private long getTimestamp(String date, String time){
 
         date = date + " " + time;
-        System.out.println("New format: "+date);
 
         //Format the following to a UNIX timestamp in a long datatype 2009-09-13 15:59:46
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -100,6 +99,21 @@ public class StorageConverter {
 
     }
 
+    /**
+     * Getters
+     */
+    private String getDate(){
+        return this.date;
+    }
+
+    private String getTime(){
+        return this.time;
+    }
+
+    /**
+     * Setters
+     * @param date
+     */
     public void setDate(String date) {
         this.date = date;
     }
@@ -158,5 +172,9 @@ public class StorageConverter {
 
     public void setWnddir(short wnddir) {
         this.wnddir = wnddir;
+    }
+
+    public void setRow_id(int row_id) {
+        this.row_id = row_id;
     }
 }
