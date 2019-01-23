@@ -71,6 +71,8 @@ public class StorageConverter {
                 e.printStackTrace();
             }
 
+            out.close();
+
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -113,7 +115,6 @@ public class StorageConverter {
 
     /**
      * Setters
-     * @param date
      */
     public void setDate(String date) {
         this.date = date;
@@ -127,7 +128,7 @@ public class StorageConverter {
         this.stn = stn;
     }
 
-    public void setTimestamp(long timestamp) {
+    private void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -175,7 +176,7 @@ public class StorageConverter {
         this.wnddir = wnddir;
     }
 
-    public void setRow_id(int row_id) {
+    private void setRow_id(int row_id) {
         this.row_id = row_id;
     }
 }
