@@ -45,7 +45,8 @@ public class StorageConverter {
         try {
             DataOutputStream out = new DataOutputStream(
                     new BufferedOutputStream(
-                            new FileOutputStream("./bin_output")
+                            //Weather Station Data
+                            new FileOutputStream("./data/data.wsd")
                     )
             );
 
