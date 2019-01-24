@@ -1,19 +1,11 @@
 package storage;
 
-import java.io.*;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Properties;
-import java.util.Random;
-
-public class StorageConverter extends StorageManager {
+public class StorageWriter extends StorageManager {
 
     private String date;
     private String time;
 
-    public StorageConverter() {
+    public StorageWriter() {
 
     }
 

@@ -1,7 +1,6 @@
 package storage;
 
 import java.io.*;
-import java.nio.ByteBuffer;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -55,6 +54,7 @@ public class StorageManager {
 
         //Display the current WeatherStationData Frame version
         System.err.println("StorageManager version: "+this.version);
+        System.err.println("Current save location: "+this.target_directory+this.target_filename);
 
     }
 
@@ -63,13 +63,11 @@ public class StorageManager {
      */
     void saveDataFrame(){
 
-        System.err.println("Saving frame to "+this.target_directory+this.target_filename);
-
         try {
             DataOutputStream out = new DataOutputStream(
                     new BufferedOutputStream(
                             //Weather Station Data Frame
-                            new FileOutputStream(this.target_directory+this.target_filename, false)
+                            new FileOutputStream(this.target_directory+this.target_filename, true)
 
                     )
             );
@@ -102,7 +100,6 @@ public class StorageManager {
 
     }
 
-
     /**
      * Convert the Date and Time into a single long
      * @param date in the following format: yyyy-MM-dd
@@ -127,7 +124,6 @@ public class StorageManager {
     /**
      * GETTERS AND SETTERS
      */
-
     public int getRow_id() {
         return row_id;
     }

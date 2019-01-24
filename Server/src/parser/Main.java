@@ -3,24 +3,16 @@ package parser;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.xml.sax.InputSource;
-import storage.StorageConverter;
+import storage.StorageWriter;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.Attributes;
 
-import java.io.StringReader;
-
 
 public class Main {
     public static void main(String[] args) {
-//    public Main() {
-//
-//    }
-//
-//    public void Parse(String xml){
 
-        final StorageConverter sc = new StorageConverter();
+        StorageWriter sc = new StorageWriter();
 
         try {
             SAXParserFactory factory = SAXParserFactory.newInstance();
