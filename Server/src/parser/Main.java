@@ -10,7 +10,12 @@ import org.xml.sax.Attributes;
 
 
 public class Main {
+
     public static void main(String[] args) {
+        for(int i=0;i<8000;i++)new Main().Go();
+    }
+
+    public void Go(){
 
         StorageWriter sc = new StorageWriter();
 

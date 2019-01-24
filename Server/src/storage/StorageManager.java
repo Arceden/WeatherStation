@@ -25,8 +25,9 @@ public class StorageManager {
     private short wnddir;
 
     private String version;
-    private String target_directory;
-    private String target_filename;
+    String target_directory;
+    String target_filename;
+    int frame_size;
 
     StorageManager(){
         loadSettings();
@@ -45,6 +46,7 @@ public class StorageManager {
             this.version = (String)prop.get("version");
             this.target_directory = (String)prop.get("target_directory");
             this.target_filename = (String)prop.get("target_filename");
+            this.frame_size = Integer.parseInt((String)prop.get("frame_size"));
 
         } catch (IOException e){
             System.err.println("Could not load the WeatherDataFrame properties!");
@@ -53,8 +55,8 @@ public class StorageManager {
         }
 
         //Display the current WeatherStationData Frame version
-        System.err.println("StorageManager version: "+this.version);
-        System.err.println("Current save location: "+this.target_directory+this.target_filename);
+//        System.err.println("StorageManager version: "+this.version);
+//        System.err.println("Current save location: "+this.target_directory+this.target_filename);
 
     }
 
