@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
+import java.util.Random;
 
 public class StorageConverter extends StorageManager {
 
@@ -13,8 +14,6 @@ public class StorageConverter extends StorageManager {
     private String time;
 
     public StorageConverter() {
-
-        setRow_id(25403);
 
     }
 
@@ -26,19 +25,6 @@ public class StorageConverter extends StorageManager {
         setTimestamp(getTimestamp(getDate(), getTime()));
         saveDataFrame();
 
-    }
-
-    /**
-     * (String) Float to Short
-     */
-    public short floatStringToShort(String value){
-        return floatStringToShort(value,0);
-    }
-    public short floatStringToShort(String value, int decimals){
-        float tmp = Float.parseFloat(value);
-        for(int i=0;i<decimals;i++)tmp*=10;
-        value = (tmp+"").replace(".0","");
-        return Short.parseShort(value);
     }
 
     /**
@@ -89,7 +75,7 @@ public class StorageConverter extends StorageManager {
     }
 
     public void setCldc(String cldc) {
-        setCldc(floatStringToShort(cldc,1));
+        setCldc(Float.parseFloat(cldc));
     }
 
     public void setWnddir(String wnddir) {

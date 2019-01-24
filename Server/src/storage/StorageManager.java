@@ -22,8 +22,7 @@ public class StorageManager {
     private float prcp;
     private float sndp;
     private byte frshht;
-//    private float cldc;
-    private short cldc;
+    private float cldc;
     private short wnddir;
 
     private String version;
@@ -77,19 +76,18 @@ public class StorageManager {
 
             try {
                 //Store all data
-//                out.writeInt(getRow_id());
                 out.writeInt(getStn());
                 out.writeLong(getTimestamp());
                 out.writeFloat(getTemp());
                 out.writeFloat(getDewp());
                 out.writeFloat(getStp());
                 out.writeFloat(getSlp());
-                out.writeFloat(getVisib());
-                out.writeFloat(getWdsp());
+                out.writeShort((short)(getVisib()*10));
+                out.writeShort((short)(getWdsp()*10));
                 out.writeFloat(getPrcp());
                 out.writeFloat(getSndp());
                 out.writeByte(getFrshht());
-                out.writeShort(getCldc());
+                out.writeShort((short)(getCldc()*10));
                 out.writeShort(getWnddir());
                 out.flush();
             } catch (IOException e) {
@@ -178,17 +176,13 @@ public class StorageManager {
         return frshht;
     }
 
-//    public float getCldc() {
-//        return cldc;
-//    }
-    public short getCldc() {
+    public float getCldc() {
         return cldc;
     }
 
     public short getWnddir() {
         return wnddir;
     }
-
 
     public void setRow_id(int row_id) {
         this.row_id = row_id;
@@ -238,10 +232,7 @@ public class StorageManager {
         this.frshht = frshht;
     }
 
-//    public void setCldc(float cldc) {
-//        this.cldc = cldc;
-//    }
-    public void setCldc(short cldc) {
+    public void setCldc(float cldc) {
         this.cldc = cldc;
     }
 
