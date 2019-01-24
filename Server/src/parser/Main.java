@@ -13,12 +13,12 @@ import java.io.StringReader;
 
 
 public class Main {
-//    public static void main(String[] args) {
-    public Main() {
-
-    }
-
-    public void Parse(String xml){
+    public static void main(String[] args) {
+//    public Main() {
+//
+//    }
+//
+//    public void Parse(String xml){
 
         final StorageConverter sc = new StorageConverter();
 
@@ -60,101 +60,84 @@ public class Main {
                 }
 
                 public void characters(char[] ch, int start, int length) throws SAXException {
-                    if (bstn) {
-                        String vstn = new String(ch, start, length);
-                        System.out.println("Station: " + vstn);
-                        sc.setStn(Integer.parseInt(vstn));
-                        bstn = false;
-                    }
-                    if (bdate) {
-                        String vdate = new String(ch, start, length);
-                        System.out.println("Datum: " + vdate);
-                        sc.setDate(vdate);
-                        bdate = false;
-                    }
-                    if (btime) {
-                        String vtime = new String(ch, start, length);
-                        System.out.println("Tijd: " + vtime);
-                        sc.setTime(vtime);
-                        btime = false;
-                    }
+
+                    if(bstn){sc.setStn( new String(ch, start, length));bstn=false;}
+                    if(bdate){sc.setDate( new String(ch, start, length));bdate=false;}
+                    if(btime){sc.setTime( new String(ch, start, length));btime=false;}
+
+
                     if (btemp) {
                         String vtemp = new String(ch, start, length);
-                        System.out.println("Temperatuur: " + vtemp);
+//                        System.out.println("Temperatuur: " + vtemp);
                         sc.setTemp(Float.parseFloat(vtemp));
                         btemp = false;
                     }
                     if (bdewp) {
                         String vdewp = new String(ch, start, length);
-                        System.out.println("Dauwpunt: " + vdewp);
+//                        System.out.println("Dauwpunt: " + vdewp);
                         sc.setDewp(Float.parseFloat(vdewp));
                         bdewp = false;
                     }
                     if (bstp) {
                         String vstp = new String(ch, start, length);
-                        System.out.println("Luchtdruk op stationsniveau: " + vstp);
+//                        System.out.println("Luchtdruk op stationsniveau: " + vstp);
                         sc.setStp(Float.parseFloat(vstp));
                         bstp = false;
                     }
                     if (bslp) {
                         String vslp = new String(ch, start, length);
-                        System.out.println("Luchtdruk op zeeniveau: " + vslp);
+//                        System.out.println("Luchtdruk op zeeniveau: " + vslp);
                         sc.setSlp(Float.parseFloat(vslp));
                         bslp = false;
                     }
                     if (bvisib) {
                         String vvisib = new String(ch, start, length);
-                        System.out.println("Zichtbaarheid: " + vvisib);
+//                        System.out.println("Zichtbaarheid: " + vvisib);
                         sc.setVisib(Float.parseFloat(vvisib));
                         bvisib = false;
                     }
                     if (bwdsp) {
                         String vwdsp = new String(ch, start, length);
-                        System.out.println("Windsnelheid: " + vwdsp);
+//                        System.out.println("Windsnelheid: " + vwdsp);
                         sc.setWdsp(Float.parseFloat(vwdsp));
                         bwdsp = false;
                     }
                     if (bprcp) {
                         String vprcp = new String(ch, start, length);
-                        System.out.println("Neerslag: " + vprcp);
+//                        System.out.println("Neerslag: " + vprcp);
                         sc.setPrcp(Float.parseFloat(vprcp));
                         bprcp = false;
                     }
                     if (bsndp) {
                         String vsndp = new String(ch, start, length);
-                        System.out.println("Sneeuw: " + vsndp);
+//                        System.out.println("Sneeuw: " + vsndp);
                         sc.setSndp(Float.parseFloat(vsndp));
                         bsndp = false;
                     }
                     if (bfrshtt) {
                         String a = new String(ch, start, length);
                         String vfrshht = "00"+a;
-                        if (a.charAt(0)=="1".charAt(0)) System.out.println("Het heeft gevroren");
-                        if (a.charAt(1)=="1".charAt(0)) System.out.println("Het heeft geregend");
-                        if (a.charAt(2)=="1".charAt(0)) System.out.println("Het heeft gesneeuwd");
-                        if (a.charAt(3)=="1".charAt(0)) System.out.println("Het heeft gehageld");
-                        if (a.charAt(4)=="1".charAt(0)) System.out.println("Er was onweer");
-                        if (a.charAt(5)=="1".charAt(0)) System.out.println("Er was een tornado of windhoos");
+//                        if (a.charAt(0)=="1".charAt(0)) System.out.println("Het heeft gevroren");
+//                        if (a.charAt(1)=="1".charAt(0)) System.out.println("Het heeft geregend");
+//                        if (a.charAt(2)=="1".charAt(0)) System.out.println("Het heeft gesneeuwd");
+//                        if (a.charAt(3)=="1".charAt(0)) System.out.println("Het heeft gehageld");
+//                        if (a.charAt(4)=="1".charAt(0)) System.out.println("Er was onweer");
+//                        if (a.charAt(5)=="1".charAt(0)) System.out.println("Er was een tornado of windhoos");
                         sc.setFrshht(Byte.parseByte(vfrshht,2));
                         bfrshtt = false;
                     }
-                    if (bcldc) {
-                        String vcldc = new String(ch, start, length);
-                        System.out.println("Bewolking: " + vcldc);
-                        sc.setCldc(Float.parseFloat(vcldc));
-                        bcldc = false;
-                    }
+                    if (bcldc) { sc.setCldc(new String(ch, start, length));bcldc = false; }
                     if (bwnddir) {
                         String vwnddir = new String(ch, start, length);
-                        System.out.println("Windrichting: " + vwnddir);
+//                        System.out.println("Windrichting: " + vwnddir);
                         sc.setWnddir(Short.parseShort(vwnddir));
                         bwnddir = false;
                     }
                 }
             };
 
-//            parser.parse("src/parser/output.xml", handle);
-            parser.parse(new InputSource(new StringReader(xml)), handle);
+            parser.parse("src/parser/output.xml", handle);
+//            parser.parse(new InputSource(new StringReader(xml)), handle);
         } catch (Exception e) {
             System.out.println(e);
         }
