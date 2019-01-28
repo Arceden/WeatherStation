@@ -13,7 +13,8 @@ public class Main {
 
     public static void main(String[] args) {
         StorageWriter sc = new StorageWriter();
-        for(int i=0;i<8000;i++)new Main().Go(sc);
+//        for(int i=0;i<8000;i++)new Main().Go(sc);
+        new Main().Go(sc);
     }
 
     public void Go(StorageWriter sc){

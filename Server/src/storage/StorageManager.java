@@ -41,18 +41,18 @@ public class StorageManager {
         //Load the properties file
         Properties prop = new Properties();
 
-        try {
-            prop.load(new FileInputStream("wsd.properties"));
-            this.version = (String)prop.get("version");
-            this.target_directory = (String)prop.get("target_directory");
-            this.target_filename = (String)prop.get("target_filename");
-            this.frame_size = Integer.parseInt((String)prop.get("frame_size"));
+        //try {
+            //prop.load(new FileInputStream("/wsd.properties"));
+            this.version = "0.1";
+            this.target_directory = "./data/";
+            this.target_filename = "data.wsd";
+            this.frame_size = 37;
 
-        } catch (IOException e){
-            System.err.println("Could not load the WeatherDataFrame properties!");
-            e.printStackTrace();
-            System.exit(1);
-        }
+       // } catch (IOException e){
+//            System.err.println("Could not load the WeatherDataFrame properties!");
+//            e.printStackTrace();
+//            System.exit(1);
+//        }
 
         //Display the current WeatherStationData Frame version
 //        System.err.println("StorageManager version: "+this.version);
@@ -78,10 +78,10 @@ public class StorageManager {
 
                 /*
                 Station 0:999999 INT
-                ID 1:8000 SHORT
+                --ID 1:8000 SHORT
                 Date 07/02/2019/00.00:12/31/2100/23.59 DATETIME
-                Temp -100,0:100,0 BYTE
-                Dauwpunt -100,0:100,0 BYTE
+                Temp -100,0:100,0 SHORT
+                Dauwpunt -100,0:100,0 SHORT
                 STP 0:9999,9 SHORT
                 SLP 0:9999,9 SHORT
                 VISIB 0:999,9 SHORT
@@ -95,14 +95,14 @@ public class StorageManager {
                 //Store all data
                 out.writeInt(getStn());
                 out.writeLong(getTimestamp());
-                out.writeFloat(getTemp());
-                out.writeFloat(getDewp());
-                out.writeFloat(getStp());
-                out.writeFloat(getSlp());
+                out.writeShort((short)(getTemp()*10));
+                out.writeShort((short)(getDewp()*10));
+                out.writeShort((short)(getStp()*10));
+                out.writeShort((short)(getSlp()*10));
                 out.writeShort((short)(getVisib()*10));
                 out.writeShort((short)(getWdsp()*10));
-                out.writeFloat(getPrcp());
-                out.writeFloat(getSndp());
+                out.writeShort((short)(getPrcp()*10));
+                out.writeShort((short)(getSndp()*10));
                 out.writeByte(getFrshht());
                 out.writeShort((short)(getCldc()*10));
                 out.writeShort(getWnddir());
