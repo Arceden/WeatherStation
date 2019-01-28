@@ -4,6 +4,7 @@ public class Server {
     public static void main(String[] args) {
         ThreadPooledServer server = new ThreadPooledServer(9000);
         new Thread(server).start();
+        System.out.println("Server Started");
 
         try {
             Thread.sleep(20 * 1000);

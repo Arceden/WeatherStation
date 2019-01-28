@@ -73,6 +73,23 @@ public class StorageManager {
             );
 
             try {
+
+                /*
+                Station 0:999999 INT
+                ID 1:8000 SHORT
+                Date 07/02/2019/00.00:12/31/2100/23.59 DATETIME
+                Temp -100,0:100,0 BYTE
+                Dauwpunt -100,0:100,0 BYTE
+                STP 0:9999,9 SHORT
+                SLP 0:9999,9 SHORT
+                VISIB 0:999,9 SHORT
+                WDSP 0:500,0 SHORT
+                PRCP: 0:500,0 SHORT
+                SNDP: 0:500,0 SHORT
+                FRSHTT 0:63 BYTE
+                CLDC 0:99,9 SHORT
+                WNDDIR 0:359 SHORT
+                 */
                 //Store all data
                 out.writeInt(getStn());
                 out.writeLong(getTimestamp());
