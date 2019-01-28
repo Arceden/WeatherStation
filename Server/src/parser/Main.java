@@ -10,9 +10,15 @@ import org.xml.sax.Attributes;
 
 
 public class Main {
-    public static void main(String[] args) {
 
+    public static void main(String[] args) {
         StorageWriter sc = new StorageWriter();
+        for(int i=0;i<8000;i++)new Main().Go(sc);
+    }
+
+    public void Go(StorageWriter sc){
+
+//        StorageWriter sc = new StorageWriter();
 
         try {
             SAXParserFactory factory = SAXParserFactory.newInstance();
