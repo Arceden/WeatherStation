@@ -12,9 +12,6 @@ public class Main {
 
         final int port = 2500;
 
-        //Create a nice warm threadpool
-        ExecutorService executor = Executors.newFixedThreadPool(4);
-
         //Initialize
         Server s = new Server(port);
         Parser p = new Parser();
