@@ -8,6 +8,7 @@ Server/*/out
 Server/out
 Storage/out
 Server/data
+**/META-INF/
 
 #NodeJS files
 node_modules/
