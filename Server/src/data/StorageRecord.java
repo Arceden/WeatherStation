@@ -1,5 +1,10 @@
 package data;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class StorageRecord {
 
     private int stn;
@@ -26,6 +31,15 @@ public class StorageRecord {
     ////////////////////
     //  GETTERS
     ////////////////////
+
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getTime() {
+        return time;
+    }
 
     public byte getFrshht() {
         return frshht;
@@ -220,6 +234,19 @@ public class StorageRecord {
         setCldc(
                 Float.parseFloat(cldc)
         );
+    }
+
+    public void setTimestamp(String date, String time){
+
+        //Format the following to a UNIX timestamp in a long datatype 2009-09-13 15:59:46
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date d = format.parse(date+" "+time);
+            setTimestamp(d.getTime());
+        } catch (ParseException e){
+            e.printStackTrace();
+        }
+
     }
 
 }

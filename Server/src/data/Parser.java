@@ -61,7 +61,6 @@ public class Parser {
         @Override
         public void run(){
 
-            boolean running=true;
             xml = xml.substring(35);
             String measurements[] = xml.split("</MEASUREMENT>");
 
@@ -70,8 +69,9 @@ public class Parser {
                 String row = measurements[i];
 
                 sr.setStn( getValue(row, stn) );
-                sr.setDate( getValue(row, date));
+                sr.setDate( getValue(row, date, 20));
                 sr.setTime( getValue(row, time));
+                sr.setTemp( getValue(row, temp));
                 sr.setDewp( getValue(row, dewp));
                 sr.setStp( getValue(row, stp));
                 sr.setSlp( getValue(row, slp));

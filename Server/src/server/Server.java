@@ -21,7 +21,7 @@ class Server {
 
     void listen(){
 
-        final ExecutorService stationProcessingPool = Executors.newFixedThreadPool(1000);
+        final ExecutorService stationProcessingPool = Executors.newFixedThreadPool(4000);
 
         Runnable listenerTask = new Runnable() {
             @Override
@@ -74,7 +74,6 @@ class Server {
                         xml = "";
                     }
                 }
-//                connection.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
