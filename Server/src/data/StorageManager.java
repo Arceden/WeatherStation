@@ -25,6 +25,10 @@ public class StorageManager {
             records.put(storageRecord.getStn(), new ArrayList<StorageRecord>(10));
         }
 
+        if((records.get(storageRecord.getStn())).size()>9){
+            System.err.println(storageRecord.getStn()+" reached 10 records!");
+        }
+
     }
 
 }
