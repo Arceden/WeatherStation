@@ -3,19 +3,26 @@ package server;
 import data.Parser;
 import data.StorageManager;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class Main {
 
     public static void main(String args[]){
 
         final int port = 2500;
 
+        //Create a nice warm threadpool
+        ExecutorService executor = Executors.newFixedThreadPool(4);
+
+        //Initialize
         Server s = new Server(port);
         Parser p = new Parser();
         StorageManager sm = new StorageManager();
 
-        p.setStorageManager(sm);
-        s.setParser(p);     //Send the parser to the server
-        s.listen();         //Listen to the specified port
+        //Settings
+        s.setParser(p);             //Send the parser to the server
+        s.listen();                 //Listen to the specified port
 
     }
 

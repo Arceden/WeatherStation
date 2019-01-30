@@ -9,6 +9,8 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Parser {
 
@@ -17,10 +19,14 @@ public class Parser {
     private StorageManager sm;
     private StorageRecord sr;
 
+    private final ExecutorService SAXProcessingPool;
+
     /**
      * Initlialize the SAX handler which converts XML into seperate Strings
      */
     public Parser(){
+
+        this.SAXProcessingPool = Executors.newFixedThreadPool(4);
 
         try {
             SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -137,21 +143,21 @@ public class Parser {
      */
     public void Parse(String xml){
 
-        this.sr = new StorageRecord();
-        this.parser.reset();
-
-        try {
-            this.parser.parse(new InputSource(new StringReader(xml)), this.handle);
-        } catch (IOException|SAXException e) {
-            e.printStackTrace();
-        }
-
-        sm.add(sr);
+        SAXProcessingPool.submit(new ParseTask());
 
     }
 
-    public void setStorageManager(StorageManager sm) {
-        this.sm = sm;
+    private class ParseTask implements Runnable {
+
+        private ParseTask(){
+
+        }
+
+        @Override
+        public void run(){
+
+        }
+
     }
 
 }
