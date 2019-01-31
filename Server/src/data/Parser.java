@@ -28,67 +28,97 @@ public class Parser {
     /**
      * Initlialize the SAX handler which converts XML into seperate Strings
      */
-    public Parser(){
-        this.XMLProcessingPool = Executors.newFixedThreadPool(4);
+    public Parser() {
+        this.XMLProcessingPool = Executors.newFixedThreadPool(10);
     }
 
     /**
      * Send a String with XML to the parse handler
+     *
      * @param xml - String
      */
-    public void Parse(String xml){
+    public void Parse(String xml) {
         XMLProcessingPool.submit(new ParseTask(xml));
-    }
-
-    private String getValue(String xml, int position){
-        return getValue(xml, position, 10);
-    }
-    private String getValue(String xml, int position, int length){
-        String value = xml.substring(position,position+length);
-        value = (value.split("<"))[0];
-        value = (value.split(">"))[1];
-        return value;
+//        new ParseTask(xml);
     }
 
     private class ParseTask implements Runnable {
 
         private String xml;
+        private int position;
 
-        private ParseTask(String xml){
-            this.xml=xml;
+        private ParseTask(String xml) {
+            this.xml = xml;
+            this.position=0;
         }
 
         @Override
-        public void run(){
+        public void run() {
 
-            xml = xml.substring(35);
-            String measurements[] = xml.split("</MEASUREMENT>");
+            StorageRecord sr = new StorageRecord();
 
-            for(int i=0;i<measurements.length;i++){
-                StorageRecord sr = new StorageRecord();
-                String row = measurements[i];
+            sr.setStn(getValue(xml, "stn"));
+            sr.setDate(getValue(xml, "dat"));
+            sr.setTime(getValue(xml, "tim"));
+            sr.setTemp(getValue(xml, "tem"));
+            sr.setDewp(getValue(xml, "dew"));
+            sr.setStp(getValue(xml, "stp"));
+            sr.setSlp(getValue(xml, "slp"));
+            sr.setVisib(getValue(xml, "vis"));
+            sr.setWdsp(getValue(xml, "wds"));
+            sr.setPrcp(getValue(xml, "prc"));
+            sr.setSndp(getValue(xml, "snd"));
+            sr.setFrshht(getValue(xml, "frs"));
+            sr.setCldc(getValue(xml, "cld"));
+            sr.setWnddir(getValue(xml, "wnd"));
 
-                sr.setStn( getValue(row, stn) );
-                sr.setDate( getValue(row, date, 20));
-                sr.setTime( getValue(row, time));
-                sr.setTemp( getValue(row, temp));
-                sr.setDewp( getValue(row, dewp));
-                sr.setStp( getValue(row, stp));
-                sr.setSlp( getValue(row, slp));
-                sr.setVisib( getValue(row, visib));
-                sr.setWdsp( getValue(row, wdsp));
-                sr.setPrcp( getValue(row, prcp));
-                sr.setSndp( getValue(row, sndp));
-                sr.setFrshht( getValue(row, frshtt));
-                sr.setCldc( getValue(row, cldc));
-                sr.setWnddir( getValue(row, wnddir));
+            StorageManager.add(sr);
 
-                StorageManager.add(sr);
+        }
+
+        /**
+         * Find the XML thing
+         * @param xml String
+         * @param id String 3 characters long
+         * @return value as String
+         */
+        private String getValue(String xml, String id){
+
+            String value="";
+
+            for(int i=this.position;i<xml.length();i++){
+
+                String compare = ""+xml.charAt(i)+xml.charAt(i+1)+xml.charAt(i+2);
+                if(compare.equalsIgnoreCase(id)){
+
+                    String current;
+                    boolean found = false;
+                    while(i<xml.length()+3){
+                        i++;
+                        current = (xml.charAt(i)+"");
+
+                        //Reached the end of the value
+                        if(current.equalsIgnoreCase("<"))
+                            break;
+
+                        //Add the value if the value had been found
+                        if(found)
+                            value+=current;
+
+                        //Reached the start of the value
+                        if(current.equalsIgnoreCase(">"))
+                            found=true;
+                    }
+                    this.position=i;
+                    break;
+
+                }
 
             }
+
+            return value;
 
         }
 
     }
-
 }

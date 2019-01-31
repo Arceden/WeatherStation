@@ -10,7 +10,7 @@ public class Main {
 
     public static void main(String args[]){
 
-        final int port = 2500;
+        final int port = 7789;
 
         //Initialize
         Server s = new Server(port);

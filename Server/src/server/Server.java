@@ -21,7 +21,7 @@ class Server {
 
     void listen(){
 
-        final ExecutorService stationProcessingPool = Executors.newFixedThreadPool(4000);
+        final ExecutorService stationProcessingPool = Executors.newFixedThreadPool(800);
 
         Runnable listenerTask = new Runnable() {
             @Override
@@ -69,11 +69,15 @@ class Server {
                 BufferedReader bin = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 while ((s = bin.readLine()) != null) {
                     xml += s;
-                    if (s.equalsIgnoreCase("</WEATHERDATA>")) {
+
+                    if (s.equalsIgnoreCase("\t</MEASUREMENT>")) {
+                        xml = (xml.split("<MEASUREMENT>"))[1];
                         parser.Parse(xml);
                         xml = "";
                     }
+
                 }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

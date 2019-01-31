@@ -92,6 +92,7 @@ public class StorageManager {
         result.setPrcp(prcp/=MAX_RECORDS);
         result.setSndp(sndp/=MAX_RECORDS);
         result.setCldc(cldc/=MAX_RECORDS);
+        result.setWnddir(wnddir/=MAX_RECORDS);
 
         //Send it to the VM
         saveToFile(result);
