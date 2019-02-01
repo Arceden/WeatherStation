@@ -95,7 +95,8 @@ public class StorageManager {
         result.setWnddir(wnddir/=MAX_RECORDS);
 
         //Send it to the VM
-        saveToFile(result);
+//        saveToFile(result);
+
 
     }
 
