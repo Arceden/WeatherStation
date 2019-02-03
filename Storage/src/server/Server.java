@@ -1,6 +1,8 @@
 package server;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -41,6 +43,12 @@ public class Server {
                     //Wait for a new connection
                     Socket connection = serverSocket.accept();
                     System.err.println("Found a new connection! "+connection.getLocalAddress());
+
+                    BufferedReader bin = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    String s;
+                    while ((s = bin.readLine()) != null) {
+                        System.out.println(s);
+                    }
 
                 }
             } catch (IOException ioe){

@@ -10,6 +10,7 @@ Storage/out
 Server/data
 **/META-INF/
 **/test_data
+Server/**/config.cfg
 
 #NodeJS files
 node_modules/
