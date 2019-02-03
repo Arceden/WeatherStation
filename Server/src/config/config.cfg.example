@@ -1,0 +1,6 @@
+#Server settings
+#THIS IS AN EXAMPLE FILE.
+#IN ORDER TO USE IT, PLEASE CHANGE THE VALUES TO WHAT YOU NEED AND CHANGE THE FILENAME TO "config.cfg"
+server_port     = 7789
+storage_ip      = 192.168.178.10
+storage_port    = 7790

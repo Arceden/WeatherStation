@@ -1,12 +1,11 @@
 package data;
 
-import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class StorageRecord implements Serializable {
+public class StorageRecord {
 
     private int stn;
     private byte frshht;

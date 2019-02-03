@@ -1,13 +1,10 @@
 package server;
 
 import config.Config;
-import data.Emitter;
 import data.Parser;
 import data.StorageManager;
 
 import java.net.InetAddress;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class Main {
 
@@ -15,7 +12,6 @@ public class Main {
 
         //Get values from configuration file
         Config cfg = new Config();
-
         final int SERVER_PORT = Integer.parseInt(cfg.getProperty("server_port"));
         final int STORAGE_PORT = Integer.parseInt(cfg.getProperty("storage_port"));
         final InetAddress STORAGE_IP = InetAddress.getByName(cfg.getProperty("storage_ip"));
@@ -23,6 +19,7 @@ public class Main {
         //Initialize
         Server s = new Server(SERVER_PORT);
         Parser p = new Parser();
+        new StorageManager();
 
         //Setup the Emitter
         Emitter.init(STORAGE_IP, STORAGE_PORT);

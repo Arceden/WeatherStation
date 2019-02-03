@@ -1,5 +1,7 @@
 package data;
 
+import server.Emitter;
+
 import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;
@@ -96,7 +98,7 @@ public class StorageManager {
 
         //Send it to the VM
 //        saveToFile(result);
-
+        Emitter.send(result);
 
     }
 

@@ -1,8 +1,6 @@
 package server;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -40,21 +38,42 @@ public class Server {
             try {
                 while(true){
 
-                    //Wait for a new connection
-                    Socket connection = serverSocket.accept();
-                    System.err.println("Found a new connection! "+connection.getLocalAddress());
+                    //Wait and accept a new connection
+                    final Socket connection = serverSocket.accept();
+                    DataHandler dataHandler = new DataHandler(connection);
+                    dataHandler.start();
 
-                    BufferedReader bin = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                    String s;
-                    while ((s = bin.readLine()) != null) {
-                        System.out.println(s);
-                    }
 
                 }
             } catch (IOException ioe){
                 ioe.printStackTrace();
             }
 
+        }
+
+    }
+
+    static class DataHandler extends Thread {
+        private Socket connection;
+        private BufferedReader inputStream;
+
+        DataHandler(Socket connection) throws IOException {
+            this.connection = connection;
+            inputStream = new BufferedReader( new InputStreamReader(connection.getInputStream()) );
+        }
+
+        @Override
+        public void run(){
+            while (true){
+
+                try {
+                    System.out.println(inputStream.readLine());
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+
+
+            }
         }
 
     }
