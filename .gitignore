@@ -11,6 +11,7 @@ Storage/out
 **/test_data
 Server/**/config.cfg
 *.wsd
+*.csv
 
 #NodeJS files
 node_modules/

@@ -1,6 +1,7 @@
-package storage;
+package server;
 
 import server.Server;
+import storage.StorageReader;
 
 public class Main {
 
@@ -11,6 +12,8 @@ public class Main {
 
         //Init classes
         Server s = new Server(port);
+//        StorageReader reader = new StorageReader();
+//        reader.query();
 
         //Execute
         s.listen();

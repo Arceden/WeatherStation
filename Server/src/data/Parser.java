@@ -8,22 +8,6 @@ import java.util.concurrent.Executors;
 public class Parser {
 
     private final ExecutorService XMLProcessingPool;
-    private final int
-            stn = 18,
-            date = 38,
-            time = 63,
-            temp = 86,
-            dewp = 104,
-            stp = 121,
-            slp = 141,
-            visib = 161,
-            wdsp = 181,
-            prcp = 199,
-            sndp = 219,
-            frshtt = 239,
-            cldc = 262,
-            wnddir = 283;
-
 
     /**
      * Initlialize the SAX handler which converts XML into seperate Strings
@@ -34,7 +18,6 @@ public class Parser {
 
     /**
      * Send a String with XML to the parse handler
-     *
      * @param xml - String
      */
     public void Parse(String xml) {

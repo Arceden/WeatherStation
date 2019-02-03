@@ -64,7 +64,7 @@ public class Emitter {
                 dos.writeShort((short) (record.getSlp() * 10));
                 dos.writeShort((short) (record.getVisib() * 10));
                 dos.writeShort((short) (record.getWdsp() * 10));
-                dos.writeShort((short) (record.getPrcp() * 10));
+                dos.writeFloat(record.getPrcp());
                 dos.writeShort((short) (record.getSndp() * 10));
                 dos.writeByte(record.getFrshht());
                 dos.writeShort((short) (record.getCldc() * 10));

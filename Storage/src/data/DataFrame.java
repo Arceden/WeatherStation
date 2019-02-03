@@ -1,6 +1,8 @@
 package data;
 
 import java.io.*;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
 
 public class DataFrame {
 
@@ -46,7 +48,7 @@ public class DataFrame {
                 out.writeShort(slp);
                 out.writeShort(visib);
                 out.writeShort(wdsp);
-                out.writeShort(prcp);
+                out.writeFloat(prcp);
                 out.writeShort(sndp);
                 out.writeByte(frshht);
                 out.writeShort(cldc);
@@ -61,6 +63,22 @@ public class DataFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+    }
+
+    /**
+     * Open the WSD file
+     */
+    public static MappedByteBuffer loadData(){
+
+        try {
+            final FileChannel channel = new FileInputStream("data/test.wsd").getChannel();
+            MappedByteBuffer buffer = channel.map(FileChannel.MapMode.READ_ONLY, 0, channel.size());
+            return buffer;
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        return null;
 
     }
 

@@ -102,7 +102,8 @@ public class StorageManager {
 
         //Send it to the VM
 //        saveToFile(result);
-        emitter.send(result);
+//        emitter.send(result);
+        System.out.println(result.getPrcp());
 
     }
 
