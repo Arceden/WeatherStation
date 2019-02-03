@@ -1,63 +1,81 @@
 package server;
-
+import data.StorageManager;
 import data.StorageRecord;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Emitter {
 
-    private static int PORT;
-    private static Socket SOCKET;
-    private static InetAddress ADDRESS;
+    private final int PORT;
+    private final InetAddress ADDRESS;
 
-    private static PrintWriter out;
-    private static ObjectOutputStream outputStream;
+    private Socket socket;
+    private DataOutputStream dos;
+    private ExecutorService senderPool = Executors.newFixedThreadPool(1);
 
-    private static boolean yes=true;
-
-    public static void init(InetAddress address, int port) {
-        PORT = port;
-        ADDRESS = address;
+    public Emitter(InetAddress address, int port){
+        this.PORT = port;
+        this.ADDRESS = address;
     }
 
-    public static void connect() throws IOException {
-        SOCKET = new Socket(ADDRESS, PORT);
-        out = new PrintWriter(SOCKET.getOutputStream(), true);
-        outputStream = new ObjectOutputStream(SOCKET.getOutputStream());
+    public void connect() throws IOException {
+        this.socket = new Socket(ADDRESS, PORT);
+        this.dos = new DataOutputStream(this.socket.getOutputStream());
     }
 
-    public static void test() throws IOException {
+    public void test() throws IOException {
 
-        while(true){
+        send(new StorageRecord());
 
-            Scanner scanner = new Scanner(System.in);
-            String input = scanner.next();
-            PrintWriter out = new PrintWriter(SOCKET.getOutputStream(), true);
-            out.println(input);
-            out.flush();
+    }
+
+    /**
+     * Send the dataframe to the Storage Server
+     * @param record StorageRecord
+     */
+    public void send(StorageRecord record) {
+        senderPool.submit(new Sender(record));
+    }
+
+    private class Sender implements Runnable {
+
+        private StorageRecord record;
+
+        public Sender(StorageRecord record){this.record=record;}
+
+        @Override
+        public void run(){
+
+            try {
+                dos.writeInt(7351674); //Send a small token to make sure this is seen as the start of the DataFrame
+                dos.writeInt(record.getStn());
+                dos.writeLong(record.getTimestamp());
+                dos.writeShort((short) (record.getTemp() * 10));
+                dos.writeShort((short) (record.getDewp() * 10));
+                dos.writeShort((short) (record.getStp() * 10));
+                dos.writeShort((short) (record.getSlp() * 10));
+                dos.writeShort((short) (record.getVisib() * 10));
+                dos.writeShort((short) (record.getWdsp() * 10));
+                dos.writeShort((short) (record.getPrcp() * 10));
+                dos.writeShort((short) (record.getSndp() * 10));
+                dos.writeByte(record.getFrshht());
+                dos.writeShort((short) (record.getCldc() * 10));
+                dos.writeShort(record.getWnddir());
+                dos.flush();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
 
         }
 
-    }
-
-    public static boolean send(StorageRecord record) {
-
-        out.println(record.getStn());
-        out.flush();
-
-//        try {
-//            outputStream.writeObject(record);
-//            outputStream.flush();
-//        } catch (IOException e){
-//            e.printStackTrace();
-//        }
-
-        return false;
     }
 
 }

@@ -17,16 +17,15 @@ public class Main {
         final InetAddress STORAGE_IP = InetAddress.getByName(cfg.getProperty("storage_ip"));
 
         //Initialize
+        Emitter e = new Emitter(STORAGE_IP, STORAGE_PORT);
         Server s = new Server(SERVER_PORT);
         Parser p = new Parser();
         new StorageManager();
 
-        //Setup the Emitter
-        Emitter.init(STORAGE_IP, STORAGE_PORT);
-        Emitter.connect();
-
-        //Settings
+        //Execute commands
+        StorageManager.setEmitter(e);
         s.setParser(p);             //Send the parser to the server
+        e.connect();
         s.listen();                 //Listen to the specified port
 
     }

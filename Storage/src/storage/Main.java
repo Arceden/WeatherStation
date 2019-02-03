@@ -8,7 +8,11 @@ public class Main {
 
         //Initialise the server listener
         final int port = 7790;
+
+        //Init classes
         Server s = new Server(port);
+
+        //Execute
         s.listen();
 
     }

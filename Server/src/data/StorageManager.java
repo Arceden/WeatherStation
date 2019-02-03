@@ -14,6 +14,7 @@ public class StorageManager {
     //Multidimensional lists
     private static HashMap<Integer, ArrayList<StorageRecord>> records;
     private static final int MAX_RECORDS = 10;
+    private static Emitter emitter;
 
     public StorageManager(){
         records = new HashMap<Integer, ArrayList<StorageRecord>>(8000);
@@ -96,9 +97,12 @@ public class StorageManager {
         result.setCldc(cldc/=MAX_RECORDS);
         result.setWnddir(wnddir/=MAX_RECORDS);
 
+        //Clear the array again
+        records.put(stn, new ArrayList<StorageRecord>(10));
+
         //Send it to the VM
 //        saveToFile(result);
-        Emitter.send(result);
+        emitter.send(result);
 
     }
 
@@ -106,7 +110,7 @@ public class StorageManager {
      * For debugging purposes only
      * @param sr - StorageRecord. Contains all the details about the measurement
      */
-    private static void saveToFile(StorageRecord sr){
+    public static void saveToFile(StorageRecord sr){
 
         try {
             DataOutputStream out = new DataOutputStream(
@@ -162,4 +166,7 @@ public class StorageManager {
 
     }
 
+    public static void setEmitter(Emitter emitter) {
+        StorageManager.emitter = emitter;
+    }
 }

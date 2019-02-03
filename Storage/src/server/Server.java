@@ -1,8 +1,11 @@
 package server;
 
+import data.DataFrame;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class Server {
 
@@ -25,7 +28,7 @@ public class Server {
         Listener(int port){
             try {
                 this.serverSocket = new ServerSocket(port);
-                System.out.println("Storage listener initialized..");
+                System.out.println("Storage server listening on port "+port);
             } catch (IOException e){
                 e.printStackTrace();
                 System.exit(1);
@@ -43,7 +46,6 @@ public class Server {
                     DataHandler dataHandler = new DataHandler(connection);
                     dataHandler.start();
 
-
                 }
             } catch (IOException ioe){
                 ioe.printStackTrace();
@@ -55,11 +57,13 @@ public class Server {
 
     static class DataHandler extends Thread {
         private Socket connection;
-        private BufferedReader inputStream;
+        private DataInputStream dis;
+        private boolean receiving;
 
         DataHandler(Socket connection) throws IOException {
             this.connection = connection;
-            inputStream = new BufferedReader( new InputStreamReader(connection.getInputStream()) );
+            this.dis = new DataInputStream(connection.getInputStream());
+            this.receiving = false;
         }
 
         @Override
@@ -67,11 +71,42 @@ public class Server {
             while (true){
 
                 try {
-                    System.out.println(inputStream.readLine());
+
+                    if(!receiving)
+                        if(dis.readInt() == 7351674)
+                            receiving=true;
+
+                    if(receiving){
+
+                        //The token has been accepted and all data should now be read
+                        DataFrame.save_data(
+                                dis.readInt(),
+                                dis.readLong(),
+                                dis.readShort(),
+                                dis.readShort(),
+                                dis.readShort(),
+                                dis.readShort(),
+                                dis.readShort(),
+                                dis.readShort(),
+                                dis.readShort(),
+                                dis.readShort(),
+                                dis.readByte(),
+                                dis.readShort(),
+                                dis.readShort()
+                        );
+                        receiving = false;
+                    }
+
+
+                } catch (SocketException e){
+                    try {
+                        connection.close();
+                    } catch (IOException se){
+                        se.printStackTrace();
+                    }
                 } catch (IOException e){
                     e.printStackTrace();
                 }
-
 
             }
         }
