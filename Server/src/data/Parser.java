@@ -1,7 +1,5 @@
 package data;
 
-import java.io.IOException;
-import java.io.StringReader;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -55,24 +53,48 @@ public class Parser {
         @Override
         public void run() {
 
+            StorageRecord bo = new StorageRecord();
             StorageRecord sr = new StorageRecord();
 
-            sr.setStn(getValue(xml, "stn"));
-            sr.setDate(getValue(xml, "dat"));
-            sr.setTime(getValue(xml, "tim"));
-            sr.setTemp(getValue(xml, "tem"));
-            sr.setDewp(getValue(xml, "dew"));
-            sr.setStp(getValue(xml, "stp"));
-            sr.setSlp(getValue(xml, "slp"));
-            sr.setVisib(getValue(xml, "vis"));
-            sr.setWdsp(getValue(xml, "wds"));
-            sr.setPrcp(getValue(xml, "prc"));
-            sr.setSndp(getValue(xml, "snd"));
-            sr.setFrshht(getValue(xml, "frs"));
-            sr.setCldc(getValue(xml, "cld"));
-            sr.setWnddir(getValue(xml, "wnd"));
+            boolean yes = getBotswana(getValue(xml,"stn"));
+            if(yes) {
+                System.err.println(getValue(xml,"stn"));
 
-            StorageManager.add(sr);
+                bo.setStn(getValue(xml, "stn"));
+                bo.setDate(getValue(xml, "dat"));
+                bo.setTime(getValue(xml, "tim"));
+                bo.setTemp(getValue(xml, "tem"));
+                bo.setDewp(getValue(xml, "dew"));
+                bo.setStp(getValue(xml, "stp"));
+                bo.setSlp(getValue(xml, "slp"));
+                bo.setVisib(getValue(xml, "vis"));
+                bo.setWdsp(getValue(xml, "wds"));
+                bo.setPrcp(getValue(xml, "prc"));
+                bo.setSndp(getValue(xml, "snd"));
+                bo.setFrshht(getValue(xml, "frs"));
+                bo.setCldc(getValue(xml, "cld"));
+                bo.setWnddir(getValue(xml, "wnd"));
+
+                StorageManager.add(bo);
+            }
+            else {
+                sr.setStn(getValue(xml, "stn"));
+                sr.setDate(getValue(xml, "dat"));
+                sr.setTime(getValue(xml, "tim"));
+                sr.setTemp(getValue(xml, "tem"));
+                sr.setDewp(getValue(xml, "dew"));
+                sr.setStp(getValue(xml, "stp"));
+                sr.setSlp(getValue(xml, "slp"));
+                sr.setVisib(getValue(xml, "vis"));
+                sr.setWdsp(getValue(xml, "wds"));
+                sr.setPrcp(getValue(xml, "prc"));
+                sr.setSndp(getValue(xml, "snd"));
+                sr.setFrshht(getValue(xml, "frs"));
+                sr.setCldc(getValue(xml, "cld"));
+                sr.setWnddir(getValue(xml, "wnd"));
+
+                StorageManager.add(sr);
+            }
 
         }
 
@@ -119,6 +141,22 @@ public class Parser {
             return value;
 
         }
+
+        private boolean getBotswana(String id){
+            //Create storage for Botswana station values
+            String[] BotsValues = {"680240", "680260", "680290", "680380", "680400", "680540", "682340", "682400", "682675"};
+            //If Current value equals a Botswana station then set isbotswana to true
+            for (int i = 0; i <= BotsValues.length; i++) {
+                if (id.equals (BotsValues[i])) {
+                        //System.err.println(i);
+                        return true;
+                }
+            }
+            return false;
+        }
+
+
+
 
     }
 }
