@@ -54,13 +54,14 @@ public class Parser {
         public void run() {
 
             StorageRecord bo = new StorageRecord();
-            StorageRecord sr = new StorageRecord();
+            //StorageRecord sr = new StorageRecord();
+            String stn = getValue(xml,"stn");
+            boolean yes = getBotswana(stn);
 
-            boolean yes = getBotswana(getValue(xml,"stn"));
             if(yes) {
-                System.err.println(getValue(xml,"stn"));
+                //System.out.println("WERKT 0.0");
 
-                bo.setStn(getValue(xml, "stn"));
+                bo.setStn(stn);
                 bo.setDate(getValue(xml, "dat"));
                 bo.setTime(getValue(xml, "tim"));
                 bo.setTemp(getValue(xml, "tem"));
@@ -77,8 +78,9 @@ public class Parser {
 
                 StorageManager.add(bo);
             }
-            else {
-                sr.setStn(getValue(xml, "stn"));
+                /*Code for the other 7990 stations if ever necessary
+
+                sr.setStn(stn);
                 sr.setDate(getValue(xml, "dat"));
                 sr.setTime(getValue(xml, "tim"));
                 sr.setTemp(getValue(xml, "tem"));
@@ -94,7 +96,7 @@ public class Parser {
                 sr.setWnddir(getValue(xml, "wnd"));
 
                 StorageManager.add(sr);
-            }
+                */
 
         }
 
@@ -144,9 +146,9 @@ public class Parser {
 
         private boolean getBotswana(String id){
             //Create storage for Botswana station values
-            String[] BotsValues = {"680240", "680260", "680290", "680380", "680400", "680540", "682340", "682400", "682675"};
+            String[] BotsValues = {"680240", "680260", "680290", "680320","680380", "680400", "680540", "682340", "682400", "682675"};
             //If Current value equals a Botswana station then set isbotswana to true
-            for (int i = 0; i <= BotsValues.length; i++) {
+            for (int i = 0; i < BotsValues.length; i++) {
                 if (id.equals (BotsValues[i])) {
                         //System.err.println(i);
                         return true;

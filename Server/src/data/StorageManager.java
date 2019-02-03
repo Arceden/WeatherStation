@@ -22,7 +22,6 @@ public class StorageManager {
      * @param storageRecord - Record of measurements
      */
     public static void add(StorageRecord storageRecord){
-
         int stn = storageRecord.getStn();
 
         //If the the key of the station is not known, go to catch
@@ -44,7 +43,6 @@ public class StorageManager {
      * @param stn - Station Number (Indentifier)
      */
     private static void finalizeNumbers(int stn){
-
         StorageRecord result = new StorageRecord();
         ArrayList<StorageRecord> items = records.get(stn);
 
@@ -95,8 +93,8 @@ public class StorageManager {
         result.setWnddir(wnddir/=MAX_RECORDS);
 
         //Send it to the VM
+        records.put(stn, new ArrayList<StorageRecord>(10));
         saveToFile(result);
-        Botswanafile(result);
 
     }
 
@@ -159,59 +157,5 @@ public class StorageManager {
         }
 
     }
-    private static void Botswanafile(StorageRecord bo){
 
-        try {
-            DataOutputStream out = new DataOutputStream(
-                    new BufferedOutputStream(
-                            //Weather Station Data Frame
-                            new FileOutputStream("botswana_data/"+bo.getStn()+".wsd")
-
-                    )
-            );
-
-            try {
-
-                /*
-                Station 0:999999 INT
-                --ID 1:8000 SHORT
-                Date 07/02/2019/00.00:12/31/2100/23.59 DATETIME
-                Temp -100,0:100,0 SHORT
-                Dauwpunt -100,0:100,0 SHORT
-                STP 0:9999,9 SHORT
-                SLP 0:9999,9 SHORT
-                VISIB 0:999,9 SHORT
-                WDSP 0:500,0 SHORT
-                PRCP: 0:500,0 SHORT
-                SNDP: 0:500,0 SHORT
-                FRSHTT 0:63 BYTE
-                CLDC 0:99,9 SHORT
-                WNDDIR 0:359 SHORT
-                 */
-                //Store all data
-                out.writeInt(bo.getStn());
-                out.writeLong(bo.getTimestamp());
-                out.writeShort((short)(bo.getTemp()*10));
-                out.writeShort((short)(bo.getDewp()*10));
-                out.writeShort((short)(bo.getStp()*10));
-                out.writeShort((short)(bo.getSlp()*10));
-                out.writeShort((short)(bo.getVisib()*10));
-                out.writeShort((short)(bo.getWdsp()*10));
-                out.writeShort((short)(bo.getPrcp()*10));
-                out.writeShort((short)(bo.getSndp()*10));
-                out.writeByte(bo.getFrshht());
-                out.writeShort((short)(bo.getCldc()*10));
-                out.writeShort(bo.getWnddir());
-                out.flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            out.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 }
