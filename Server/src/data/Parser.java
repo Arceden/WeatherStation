@@ -1,7 +1,5 @@
 package data;
 
-import java.io.IOException;
-import java.io.StringReader;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -38,24 +36,28 @@ public class Parser {
         @Override
         public void run() {
 
-            StorageRecord sr = new StorageRecord();
+            StorageRecord record = new StorageRecord();
+            String stn = getValue(xml,"stn");
+            boolean yes = getBotswana(stn);
 
-            sr.setStn(getValue(xml, "stn"));
-            sr.setDate(getValue(xml, "dat"));
-            sr.setTime(getValue(xml, "tim"));
-            sr.setTemp(getValue(xml, "tem"));
-            sr.setDewp(getValue(xml, "dew"));
-            sr.setStp(getValue(xml, "stp"));
-            sr.setSlp(getValue(xml, "slp"));
-            sr.setVisib(getValue(xml, "vis"));
-            sr.setWdsp(getValue(xml, "wds"));
-            sr.setPrcp(getValue(xml, "prc"));
-            sr.setSndp(getValue(xml, "snd"));
-            sr.setFrshht(getValue(xml, "frs"));
-            sr.setCldc(getValue(xml, "cld"));
-            sr.setWnddir(getValue(xml, "wnd"));
+            if(yes) {
+                record.setStn(stn);
+                record.setDate(getValue(xml, "dat"));
+                record.setTime(getValue(xml, "tim"));
+                record.setTemp(getValue(xml, "tem"));
+                record.setDewp(getValue(xml, "dew"));
+                record.setStp(getValue(xml, "stp"));
+                record.setSlp(getValue(xml, "slp"));
+                record.setVisib(getValue(xml, "vis"));
+                record.setWdsp(getValue(xml, "wds"));
+                record.setPrcp(getValue(xml, "prc"));
+                record.setSndp(getValue(xml, "snd"));
+                record.setFrshht(getValue(xml, "frs"));
+                record.setCldc(getValue(xml, "cld"));
+                record.setWnddir(getValue(xml, "wnd"));
 
-            StorageManager.add(sr);
+                StorageManager.add(record);
+            }
 
         }
 
@@ -101,6 +103,24 @@ public class Parser {
 
             return value;
 
+        }
+
+        /**
+         * Detect wether or not the station is from Botswana
+         * @param id String, indentifier for station
+         * @return boolean, true if from botswana
+         */
+        private boolean getBotswana(String id){
+            //Create storage for Botswana station values
+            String[] BotsValues = {"680240", "680260", "680290", "680320","680380", "680400", "680540", "682340", "682400", "682675"};
+            //If Current value equals a Botswana station then set isbotswana to true
+            for (int i = 0; i < BotsValues.length; i++) {
+                if (id.equals (BotsValues[i])) {
+                    //System.err.println(i);
+                    return true;
+                }
+            }
+            return false;
         }
 
     }
