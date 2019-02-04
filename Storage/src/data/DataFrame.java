@@ -8,6 +8,7 @@ public class DataFrame {
 
     private static DataOutputStream dos;
     private static DataInputStream din;
+    private final static String FILENAME = "data.wsd";
 
     /**
      * Save the Dataframe
@@ -32,7 +33,7 @@ public class DataFrame {
             DataOutputStream out = new DataOutputStream(
                     new BufferedOutputStream(
                             //Weather Station Data Frame
-                            new FileOutputStream("data/test.wsd", true)
+                            new FileOutputStream("data/"+FILENAME, true)
                     )
             );
 
@@ -72,7 +73,7 @@ public class DataFrame {
     public static MappedByteBuffer loadData(){
 
         try {
-            final FileChannel channel = new FileInputStream("data/test.wsd").getChannel();
+            final FileChannel channel = new FileInputStream("data/"+FILENAME).getChannel();
             MappedByteBuffer buffer = channel.map(FileChannel.MapMode.READ_ONLY, 0, channel.size());
             return buffer;
         } catch (IOException e){

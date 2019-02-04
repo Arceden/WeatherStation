@@ -1,6 +1,7 @@
 package server;
 
 import data.DataFrame;
+import storage.StorageReader;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -11,6 +12,7 @@ public class Server {
 
     private final int port;
     private Thread serverThread;
+    private StorageReader storageReader;
 
     public Server(int port){
         this.port=port;
@@ -19,6 +21,10 @@ public class Server {
     public void listen(){
         serverThread = new Thread(new Listener(this.port));
         serverThread.start();
+    }
+
+    public void setReader(StorageReader storageReader){
+        this.storageReader = storageReader;
     }
 
     private class Listener implements Runnable {
@@ -68,8 +74,8 @@ public class Server {
 
         @Override
         public void run(){
-            while (true){
 
+            while (true){
                 try {
 
                     if(!receiving)
@@ -97,20 +103,18 @@ public class Server {
                         receiving = false;
                     }
 
-
-                } catch (SocketException e){
+                } catch (EOFException|SocketException e){
                     try {
                         connection.close();
+                        break;
                     } catch (IOException se){
                         se.printStackTrace();
                     }
                 } catch (IOException e){
                     e.printStackTrace();
                 }
-
             }
+
         }
-
     }
-
 }

@@ -1,6 +1,5 @@
 package server;
 
-import server.Server;
 import storage.StorageReader;
 
 public class Main {
@@ -12,10 +11,13 @@ public class Main {
 
         //Init classes
         Server s = new Server(port);
-//        StorageReader reader = new StorageReader();
-//        reader.query();
+        WebSocket w = new WebSocket(port);
+        StorageReader reader = new StorageReader();
+
+//        reader.query("all");
 
         //Execute
+//        w.listen();
         s.listen();
 
     }

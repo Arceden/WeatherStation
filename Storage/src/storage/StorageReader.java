@@ -27,7 +27,17 @@ public class StorageReader {
         this.records = buffer.remaining()/FRAMESIZE;
     }
 
-    public void query(){
+    public void query(String query){
+
+        switch (query){
+            case "all":
+                all();
+                break;
+        }
+
+    }
+
+    private void all(){
 
         //Request ALL data (as .csv)
         System.out.println("Amount of records: "+records);
@@ -95,7 +105,9 @@ public class StorageReader {
         private StringBuilder sb;
 
         CSV() throws FileNotFoundException {
-            writer = new PrintWriter(new File("test.csv"));
+            Date d = new Date();
+
+            writer = new PrintWriter(new File("exports/"+d.getTime()+".csv"));
             header();
         }
 
