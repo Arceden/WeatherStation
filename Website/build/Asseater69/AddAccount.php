@@ -9,6 +9,7 @@
 //include config.php
 require_once  "config.php";
 
+
 //define variables
 $username = $password = $confirm_password = "";
 $username_err = $password_err = $confirm_password_err = "";
@@ -26,7 +27,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 
     } else{
         // Prepare a select statement
-        $sql = "SELECT idUser FROM User WHERE username = :username";
+        $sql = "SELECT idUser FROM user WHERE username = :username";
 
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -76,7 +77,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
 
         // Prepare an insert statement
-        $sql = "INSERT INTO users (username, password) VALUES (:username, :password)";
+        $sql = "INSERT INTO user (username, password) VALUES (:username, :password)";
 
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
