@@ -260,7 +260,7 @@ public class StorageRecord implements Serializable {
 
     public void setWdsp(String wdsp) {
         if(IsError(wdsp)){
-            addError(wdsp;
+            addError(wdsp);
         }
         else {
             setWdsp(
