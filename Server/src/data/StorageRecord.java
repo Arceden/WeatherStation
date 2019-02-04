@@ -28,6 +28,7 @@ public class StorageRecord implements Serializable {
         }
         return false;
     }
+
     public void addError(String value){
         if(max_errors(error_sum.size())&& max_errors(error_sum.size() + 1)){
             error_sum.add(value);
@@ -175,15 +176,25 @@ public class StorageRecord implements Serializable {
     ////////////////////
 
     public void setFrshht(String frshht) {
-        setFrshht(
-                Byte.parseByte(frshht,2)
-        );
+        if(IsError(frshht)){
+            addError(frshht);
+        }
+        else {
+            setFrshht(
+                    Byte.parseByte(frshht, 2)
+            );
+        }
     }
 
     public void setWnddir(String wnddir) {
-        setWnddir(
-                Short.parseShort(wnddir)
-        );
+        if(IsError(wnddir)){
+            addError(wnddir);
+        }
+        else {
+            setWnddir(
+                    Short.parseShort(wnddir)
+            );
+        }
     }
 
     public void setStn(String stn) {
@@ -193,15 +204,25 @@ public class StorageRecord implements Serializable {
     }
 
     public void setTemp(String temp) {
-        setTemp(
-                Float.parseFloat(temp)
-        );
+        if(IsError(temp)){
+            addError(temp);
+        }
+        else {
+            setTemp(
+                    Float.parseFloat(temp)
+            );
+        }
     }
 
     public void setDewp(String dewp) {
-        setDewp(
-                Float.parseFloat(dewp)
-        );
+        if(IsError(dewp)){
+            addError(dewp);
+        }
+        else {
+            setDewp(
+                    Float.parseFloat(dewp)
+            );
+        }
     }
 
     public void setStp(String stp) {
@@ -216,39 +237,69 @@ public class StorageRecord implements Serializable {
     }
 
     public void setSlp(String slp) {
-        setSlp(
-                Float.parseFloat(slp)
-        );
+        if(IsError(slp)){
+            addError(slp);
+        }
+        else {
+            setSlp(
+                    Float.parseFloat(slp)
+            );
+        }
     }
 
     public void setVisib(String visib) {
-        setVisib(
-                Float.parseFloat(visib)
-        );
+        if(IsError(visib)){
+            addError(visib);
+        }
+        else {
+            setVisib(
+                    Float.parseFloat(visib)
+            );
+        }
     }
 
     public void setWdsp(String wdsp) {
-        setWdsp(
-                Float.parseFloat(wdsp)
-        );
+        if(IsError(wdsp)){
+            addError(wdsp;
+        }
+        else {
+            setWdsp(
+                    Float.parseFloat(wdsp)
+            );
+        }
     }
 
     public void setPrcp(String prcp) {
-        setPrcp(
-                Float.parseFloat(prcp)
-        );
+        if(IsError(prcp)){
+            addError(prcp);
+        }
+        else {
+            setPrcp(
+                    Float.parseFloat(prcp)
+            );
+        }
     }
 
     public void setSndp(String sndp) {
-        setSndp(
-                Float.parseFloat(sndp)
-        );
+        if(IsError(sndp)){
+            addError(sndp);
+        }
+        else {
+            setSndp(
+                    Float.parseFloat(sndp)
+            );
+        }
     }
 
     public void setCldc(String cldc) {
-        setCldc(
-                Float.parseFloat(cldc)
-        );
+        if(IsError(cldc)){
+            addError(cldc);
+        }
+        else {
+            setCldc(
+                    Float.parseFloat(cldc)
+            );
+        }
     }
 
     public void setTimestamp(String date, String time){

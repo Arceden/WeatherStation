@@ -75,6 +75,7 @@ public class StorageManager {
         //Sum the rest
         //TODO: Check if this record had an error
         for(StorageRecord record: items){
+
             wnddir+=record.getWnddir();
             temp+=record.getTemp();
             dewp+=record.getDewp();
