@@ -51,6 +51,8 @@ public class StorageManager {
         StorageRecord result = new StorageRecord();
         ArrayList<StorageRecord> items = records.get(stn);
 
+
+
         //These values cant be recalculated easly
         //They have to be checked for errors though
         result.setStn(stn);
