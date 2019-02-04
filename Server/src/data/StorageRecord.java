@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class StorageRecord implements Serializable {
@@ -15,17 +16,25 @@ public class StorageRecord implements Serializable {
     private String date, time;
     private float temp, dewp, stp, slp, visib, wdsp, prcp, sndp, cldc;
 
-    private int error_sum;
-
+    private ArrayList<String> error_sum = new ArrayList<>();
+    /*
     public StorageRecord(){
         error_sum=0;
     }
-
-    public void addError(){
-        this.error_sum++;
+    */
+    public boolean max_errors(int value){
+        if( 14 >= value){
+            return true;
+        }
+        return false;
+    }
+    public void addError(String value){
+        if(max_errors(error_sum.size())&& max_errors(error_sum.size() + 1)){
+            error_sum.add(value);
+        }
     }
 
-    public int errors(){
+    public ArrayList<String> errors(){
         return this.error_sum;
     }
 
@@ -196,9 +205,14 @@ public class StorageRecord implements Serializable {
     }
 
     public void setStp(String stp) {
-        setStp(
-                Float.parseFloat(stp)
-        );
+        if(IsError(stp)){
+            addError(stp);
+        }
+        else {
+            setStp(
+                    Float.parseFloat(stp)
+            );
+        }
     }
 
     public void setSlp(String slp) {
@@ -250,4 +264,10 @@ public class StorageRecord implements Serializable {
 
     }
 
+    public boolean IsError(String value){
+        if(value == null || value == "0"){
+            return true;
+        }
+        return false;
+    }
 }
