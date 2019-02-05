@@ -21,6 +21,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Check if username is empty
     if(empty(trim($_POST["username"]))){
         $username_err = "Please enter username.";
+        echo $username_err;
     } else{
         $username = trim($_POST["username"]);
     }
@@ -28,6 +29,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Check if password is empty
     if(empty(trim($_POST["password"]))){
         $password_err = "Please enter your password.";
+        echo $password_err;
     } else{
         $password = trim($_POST["password"]);
     }
@@ -68,11 +70,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         } else{
                             // Display an error message if password is not valid
                             $password_err = "The password you entered was not valid.";
+                            echo $password_err;
                         }
                     }
                 } else{
                     // Display an error message if username doesn't exist
                     $username_err = "No account found with that username.";
+                    echo $username_err;
                 }
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
