@@ -21,7 +21,7 @@ if($_SESSION["type"] == 1) {
 
 <p>Cool visual graph</p>
 
-<select id="dropdown" name="weatherstation">
+<select id="dropdown" name="weatherstation" onchange="update()">
 </select>
 <br>
 
