@@ -6,11 +6,11 @@ import java.io.BufferedOutputStream;
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class StorageManager {
 
+    private static final Set<String> ERRORS = Collections.unmodifiableSet(new HashSet<>(Arrays.asList("wnddir", "temp", "dewp", "stp", "slp", "visib", "wdsp", "prcp", "sndp", "cldc")));
     //Multidimensional lists
     private static HashMap<Integer, ArrayList<StorageRecord>> records;
     private static final int MAX_RECORDS = 10;
@@ -76,14 +76,14 @@ public class StorageManager {
         for (StorageRecord record : items) {
 
             String[] errors = record.errorlist();
-            boolean invalid = false;
 
-            for (int i = 0; i <= 10; i++) {
-                if(record.equals(errors[i])) {
+            for(int i = 0; i < 10; i++) {
+                boolean invalid = false;
+                if (ERRORS.contains(errors[i]))
+                {
                     invalid = true;
                 }
-            }
-            if(!invalid) {
+                if (!invalid) {
                     wnddir += record.getWnddir();
                     temp += record.getTemp();
                     dewp += record.getDewp();
@@ -95,20 +95,23 @@ public class StorageManager {
                     sndp += record.getSndp();
                     cldc += record.getCldc();
                 }
+            }
         }
 
 
+
+
         //Calculate realistic number
-        result.setTemp(temp /= MAX_RECORDS);
-        result.setDewp(dewp /= MAX_RECORDS);
-        result.setStp(stp /= MAX_RECORDS);
-        result.setSlp(slp /= MAX_RECORDS);
-        result.setVisib(visib /= MAX_RECORDS);
-        result.setWdsp(wdsp /= MAX_RECORDS);
-        result.setPrcp(prcp /= MAX_RECORDS);
-        result.setSndp(sndp /= MAX_RECORDS);
-        result.setCldc(cldc /= MAX_RECORDS);
-        result.setWnddir(wnddir /= MAX_RECORDS);
+        result.setTemp(temp / MAX_RECORDS);
+        result.setDewp(dewp / MAX_RECORDS);
+        result.setStp(stp / MAX_RECORDS);
+        result.setSlp(slp / MAX_RECORDS);
+        result.setVisib(visib / MAX_RECORDS);
+        result.setWdsp(wdsp / MAX_RECORDS);
+        result.setPrcp(prcp / MAX_RECORDS);
+        result.setSndp(sndp / MAX_RECORDS);
+        result.setCldc(cldc / MAX_RECORDS);
+        result.setWnddir((wnddir /= MAX_RECORDS));
 
         //Clear the array again
         records.put(stn, new ArrayList<StorageRecord>(10));
