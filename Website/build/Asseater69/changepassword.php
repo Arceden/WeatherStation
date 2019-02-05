@@ -1,39 +1,25 @@
 <?php
+// Initialize the session
+session_start();
  
- session_start();
 // Include config file
 require_once "config.php";
  
 // Define variables and initialize with empty values
-$new_password = $confirm_password = $old_password = "";
-$new_password_err = $confirm_password_err = $old_password_err = "";
-
-$session_username = $_SESSION['username'];
+$new_password = $confirm_password = "";
+$new_password_err = $confirm_password_err = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-
-    $old_password = trim($_POST["old_password"]);
-    $stmt = $pdo->query("SELECT password FROM user WHERE username = '$session_username'");
-    $hashed_password = $stmt->fetch();
-    if(empty($old_password)){
-        $old_password_err = "Please enter your old password.";
-    } elseif(!password_verify($old_password, $hashed_password)){
-        $old_password_err = "Old password isn't correct!";
-    }
-
  
     // Validate new password
-    if(empty(trim($_POST["password"]))){
-            $password_err = "Please enter a password.";
-        } elseif(strlen(trim($_POST["password"])) < 8) {
-            $password_err = "Password must have atleast 8 characters.";
-        }  elseif(!preg_match("#[0-9]+#", trim($_POST["password"]))){
-            $password_err = "Password must contain at least 1 number." ;}
-         elseif(!preg_match("#[a-zA-Z]+#", trim($_POST["password"]))){
-            $password_err = "Password must contain at least 1 letter." ;}
-         else{
-            $password = trim($_POST["password"]);}
+    if(empty(trim($_POST["new_password"]))){
+        $new_password_err = "Please enter the new password.";     
+    } elseif(strlen(trim($_POST["new_password"])) < 6){
+        $new_password_err = "Password must have atleast 6 characters.";
+    } else{
+        $new_password = trim($_POST["new_password"]);
+    }
     
     // Validate confirm password
     if(empty(trim($_POST["confirm_password"]))){
@@ -46,9 +32,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
         
     // Check input errors before updating the database
-    if(empty($new_password_err) && empty($confirm_password_err) && empty($old_password_err)){
+    if(empty($new_password_err) && empty($confirm_password_err)){
         // Prepare an update statement
-        $sql = "UPDATE users SET password = :password WHERE id = :id";
+        $sql = "UPDATE user SET password = :password WHERE idUser = :id";
         
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
