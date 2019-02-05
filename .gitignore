@@ -4,14 +4,14 @@
 **/.idea/
 
 #Java files
-Server/*/out
 Server/out
 Storage/out
 **/META-INF/
 **/test_data
-Server/**/config.cfg
+**/config.cfg
 *.wsd
 *.csv
+*.iml
 
 #NodeJS files
 node_modules/
