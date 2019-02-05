@@ -4,7 +4,6 @@ import data.DataFrame;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.MappedByteBuffer;
 import java.text.DateFormat;
