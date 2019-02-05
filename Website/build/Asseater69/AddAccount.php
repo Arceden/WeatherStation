@@ -2,7 +2,7 @@
 
 // Initialize the session
 session_start();
-
+// Check if session login is admin
 if($_SESSION["type"] == 1) {
 
 
@@ -51,16 +51,17 @@ if($_SESSION["type"] == 1) {
             unset($stmt);
         }
 
-        //CREATE STRONG PASSWORD CRITERIA
-
         // Validate password
         if(empty(trim($_POST["password"]))){
             $password_err = "Please enter a password.";
-        } elseif(strlen(trim($_POST["password"])) < 8){
+        } elseif(strlen(trim($_POST["password"])) < 8) {
             $password_err = "Password must have atleast 8 characters.";
-        } else{
-            $password = trim($_POST["password"]);
-        }
+        }  elseif(!preg_match("#[0-9]+#", trim($_POST["password"]))){
+            $password_err = "Password must contain at least 1 number." ;}
+         elseif(!preg_match("#[a-zA-Z]+#", trim($_POST["password"]))){
+            $password_err = "Password must contain at least 1 letter." ;}
+         else{
+            $password = trim($_POST["password"]);}
 
         // Validate confirm password
         if(empty(trim($_POST["confirm_password"]))){

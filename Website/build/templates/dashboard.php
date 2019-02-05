@@ -1,12 +1,20 @@
 <h1>Dashboard</h1>
-<p>Call popups with the links below</p>
 
+<?php
 
-<a class="call_login" href="javascript:void(0)">Login</a><br/>
+// Check if session login is admin
+if($_SESSION["type"] == 1) {
+
+?>
 <a class="call_user_create" href="javascript:void(0)">Add new user</a><br/>
 <a class="call_user_edit" href="javascript:void(0)">Edit user</a><br/>
 <a class="call_user_remove" href="javascript:void(0)">Remove user</a><br/>
-<a class="call_new_password" href="javascript:void(0)">Renew Password</a>
+<?php
+}
+?>
+
+<a class="call_new_password" href="javascript:void(0)">Renew Password</a><br/>
+<a href="/Asseater69/logout.php">Sign Out of Your Account</a>
 
 <p>Request a data download</p>
 <a href="javascript:void(0)">Request</a>
