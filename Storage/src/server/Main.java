@@ -1,6 +1,5 @@
 package server;
 
-import server.Server;
 import storage.StorageReader;
 
 public class Main {

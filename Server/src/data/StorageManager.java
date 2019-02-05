@@ -72,18 +72,18 @@ public class StorageManager {
                 cldc = 0;
 
         //Sum the rest
-        //TODO: Check if this record had an error
+        //Check if this record had an error
         for (StorageRecord record : items) {
 
             String[] errors = record.errorlist();
+            boolean invalid = false;
 
-            for (int i = 0; i <= 11; i++) {
+            for (int i = 0; i <= 10; i++) {
                 if(record.equals(errors[i])) {
-                    System.out.println("This record has received an invalid value");
-                    break;
+                    invalid = true;
                 }
-
-                if (i == 11) {
+            }
+            if(!invalid) {
                     wnddir += record.getWnddir();
                     temp += record.getTemp();
                     dewp += record.getDewp();
@@ -95,7 +95,6 @@ public class StorageManager {
                     sndp += record.getSndp();
                     cldc += record.getCldc();
                 }
-            }
         }
 
 
