@@ -15,7 +15,6 @@ public class StorageRecord implements Serializable {
     private String date, time;
     private float temp, dewp, stp, slp, visib, wdsp, prcp, sndp, cldc;
 
-//    private ArrayList<String> error_sum = new ArrayList<>();
     private String[] errors = new String[11];
     private int error_pos;
 
@@ -24,7 +23,7 @@ public class StorageRecord implements Serializable {
         this.errors[this.error_pos] = value;
         this.error_pos++;
     }
-    //Method to call the errorlist by transferring data to an array
+    //Method to call the errorlist
     public String[] errorlist () {
         return errors;
     }
@@ -294,6 +293,7 @@ public class StorageRecord implements Serializable {
 
         }
 
+        //Check if value is invalid
         public boolean IsError (String value){
             if (value == null || value == "0") {
                 return true;
