@@ -74,14 +74,15 @@ public class StorageManager {
         //Sum the rest
         //TODO: Check if this record had an error
         for (StorageRecord record : items) {
-//            ArrayList<String> errors = record.errorlist();
+
             String[] errors = record.errorlist();
 
             for (int i = 0; i <= 11; i++) {
-                if(items.equals(errors[i])) {
-                    System.out.println(errors[i]);
+                if(record.equals(errors[i])) {
                     System.out.println("This record has received an invalid value");
+                    break;
                 }
+
                 if (i == 11) {
                     wnddir += record.getWnddir();
                     temp += record.getTemp();
