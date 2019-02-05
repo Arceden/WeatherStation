@@ -1,0 +1,5 @@
+#Server settings
+#THIS IS AN EXAMPLE FILE.
+#IN ORDER TO USE IT, PLEASE CHANGE THE VALUES TO WHAT YOU NEED AND CHANGE THE FILENAME TO "config.cfg"
+storage_port    = 7790
+export_directory= data/

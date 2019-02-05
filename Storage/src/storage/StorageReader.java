@@ -21,14 +21,20 @@ public class StorageReader {
 
     private int records;
     private MappedByteBuffer buffer;
+    private String export_directory;
 
     public StorageReader(){
+        this.export_directory = "";
         loadValues();
     }
 
     private void loadValues(){
         this.buffer = DataFrame.loadData();
         this.records = buffer.remaining()/FRAMESIZE;
+    }
+
+    public void setExportDirectory(String export_directory) {
+        this.export_directory = export_directory;
     }
 
     public void keepUpToDate(){
@@ -200,7 +206,7 @@ public class StorageReader {
 
         CSV(String filename) throws FileNotFoundException {
             this.filename = filename;
-            writer = new PrintWriter(new File("export/"+this.filename+".csv"));
+            writer = new PrintWriter(new File(export_directory+this.filename+".csv"));
             header();
         }
 
