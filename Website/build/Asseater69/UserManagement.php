@@ -1,51 +1,63 @@
-?php
+<?php
 /**
  * Created by PhpStorm.
  * User: Youri van de Geer
  * Date: 05/02/2019
  * Time: 12:39
  */
-include('config.php');
-$stmt = $pdo->query("SELECT * FROM user");
 
-echo "<div class=\"container-fluid\">";
-echo "<div class=\"opmaak_1\">";
-echo "<table align=center  border=\"1\" class=\"gebruikersbeheer-opmaak_2\">";
-echo "<tr>";
-echo "<td colspan=\"13\"><h2 align='center'>User Managament</h2></td>";
-echo "</tr>";
-echo "<tr> <th>Id</th><th>Username</th><th>Type</th>";
+session_start();
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: /index.php");
+    exit;
+}
 
-while ($row = $stmt->fetch()) {
 
+// if($_SESSION["type"] == 1) {
+    include('config.php');
+
+
+    $stmt = $pdo->query("SELECT * FROM user");
+
+    echo "<div class=\"container-fluid\">";
+    echo "<div class=\"opmaak_1\">";
+    echo "<table align=center  border=\"1\" class=\"gebruikersbeheer-opmaak_2\">";
     echo "<tr>";
-
-    if ($row['type'] == 1) {
-        $rank = "Beheerder";
-    }
-    if ($row['type'] == 0) {
-        $rank = "Gebruiker";
-    }
-
-    echo "<td>".$row['idUser'] . "</td>";
-    echo "<td>".$row['username'] . "</td>";
-    echo "<td>".$rank."</td>";
-
-    ?>
-    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-    <?php
-    echo "<td>"."<input type='submit' name ='delete' value = ' ".$row['idUser']." '>"."</td>";
-    echo "</form>";
+    echo "<td colspan=\"13\"><h2 align='center'>User Managament</h2></td>";
     echo "</tr>";
-}
+    echo "<tr> <th>Id</th><th>Username</th><th>Type</th>";
 
-if(isset($_POST["delete"])) {
+    while ($row = $stmt->fetch()) {
 
-    $number = $_POST['delete'];
-   echo "User "; echo $number; echo " has been removed.";
+        echo "<tr>";
 
-   $del_query = "DELETE FROM user WHERE idUser = ".$number;
+       if ($row['type'] == 1) {
+        $rank = "Beheerder";
+       }
+       if ($row['type'] == 0) {
+           $rank = "Gebruiker";
+       }
 
-   $pdo->exec($del_query);
-}
-?><
+       echo "<td>".$row['idUser'] . "</td>";
+       echo "<td>".$row['username'] . "</td>";
+       echo "<td>".$rank."</td>";
+
+      ?>
+     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+     <?php
+      echo "<td>"."<input type='submit' name ='delete' value = ' ".$row['idUser']." '>"."</td>";
+      echo "</form>";
+      echo "</tr>";
+    }
+
+    if(isset($_POST["delete"])) {
+
+        $number = $_POST['delete'];
+    echo "User "; echo $number; echo " has been removed.";
+
+    $del_query = "DELETE FROM user WHERE idUser = ".$number;
+
+    $pdo->exec($del_query);
+    }
+// }
+?>
