@@ -2,7 +2,7 @@
 
 // Initialize the session
 session_start();
-
+// Check if session login is admin
 if($_SESSION["type"] == 1) {
 
 

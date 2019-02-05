@@ -1,3 +1,12 @@
+<?php
+
+// Initialize the session
+session_start();
+// Check if session login is admin
+if($_SESSION["type"] == 1) {
+?>
+
+
 <div id="user_create" class="popup field dark_ui invisible">
     <div class="screen">
         <div class="close">x</div>
@@ -14,3 +23,8 @@
         </form>
     </div>
 </div>
+
+<?php
+}
+else {echo "Couldn't find this page";}
+?>
