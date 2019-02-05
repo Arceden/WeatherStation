@@ -23,72 +23,22 @@ dataRequest.onreadystatechange = function() {
 
       for (var i = 1; i < a.length - 1; i++) {
          var b = a[i].split(";");
-         if (typeof datathings[b[0]] != "object") {
-            datathings[b[0]] = [];
-         }
-         datathings[b[0]].push({
+         datathings[b[0]] = {
             date: b[1],
             time: b[2],
-            temp: parseFloat(b[3]),
-            dewp: parseFloat(b[4]),
-            stp: parseFloat(b[5]),
-            slp: parseFloat(b[6]),
-            visib: parseFloat(b[7]),
-            wdsp: parseFloat(b[8]),
-            prcp: parseFloat(b[9]),
-            sndp: parseFloat(b[10]),
-            frshht: parseFloat(b[11]),
-            cldc: parseFloat(b[12]),
-            wnddir: parseFloat(b[13])
-         });
-      }
-
-      Object.entries(datathings).forEach(([key, x]) => {
-         avgtemp = 0;
-         avgdewp = 0;
-         avgstp = 0;
-         avgslp = 0;
-         avgvisib = 0;
-         avgwdsp = 0;
-         avgprcp = 0;
-         avgsndp = 0;
-         avgfrshht = 0;
-         avgcldc = 0;
-         avgwnddir = 0;
-         for (var i = 0; i < x.length; i++) {
-            avgtemp += x[i].temp;
-            avgdewp += x[i].dewp;
-            avgstp += x[i].stp;
-            avgslp += x[i].slp;
-            avgvisib += x[i].visib;
-            avgwdsp += x[i].wdsp;
-            avgprcp += x[i].prcp;
-            avgsndp += x[i].sndp;
-            avgfrshht = (avgfrshht | x[i].frshht);
-            avgcldc += x[i].cldc;
-            avgwnddir += x[i].wnddir;
-         }
-
-         y = {
-            date: x[x.length - 1].date,
-            time: x[x.length - 1].time,
-            temp: avgtemp / x.length,
-            dewp: avgdewp / x.length,
-            stp: avgstp / x.length,
-            slp: avgslp / x.length,
-            visib: avgvisib / x.length,
-            wdsp: avgwdsp / x.length,
-            prcp: avgprcp / x.length,
-            sndp: avgsndp / x.length,
-            frshht: avgfrshht,
-            cldc: avgcldc / x.length,
-            wnddir: avgwnddir / x.length
+            temp: b[3],
+            dewp: b[4],
+            stp: b[5],
+            slp: b[6],
+            visib: b[7],
+            wdsp: b[8],
+            prcp: b[9],
+            sndp: b[10],
+            frshht: b[11],
+            cldc: b[12],
+            wnddir: b[13]
          };
-
-         datathings[key] = y;
-      });
-
-
+      }
    }
 }
 
@@ -108,16 +58,16 @@ function loop() {
          ctx.font = "15px Arial";
 
          ctx.fillText(`Date of measurement: ${datathings[cs].date} at ${datathings[cs].time}`, 20, 20)
-         ctx.fillText(`Temperature: ${datathings[cs].temp.toFixed(1)}°C`, 20, 40);
-         ctx.fillText(`Dew point: ${datathings[cs].dewp.toFixed(1)}°C`, 20, 60);
-         ctx.fillText(`Air pressure at station level: ${datathings[cs].stp.toFixed(1)} millibar`, 20, 80);
-         ctx.fillText(`Air pressure at sea level: ${datathings[cs].slp.toFixed(1)} millibar`, 20, 100);
-         ctx.fillText(`Visibility : ${datathings[cs].visib.toFixed(1)} km`, 20, 120);
-         ctx.fillText(`Wind speed: ${datathings[cs].wdsp.toFixed(1)} km/h`, 20, 140);
-         ctx.fillText(`Rainfall: ${datathings[cs].prcp.toFixed(1)} cm`, 20, 160);
-         ctx.fillText(`Snowfall: ${datathings[cs].sndp.toFixed(1)} cm`, 20, 180);
-         ctx.fillText(`Cloud Cover: ${datathings[cs].cldc.toFixed(1)} %`, 20, 200);
-         ctx.fillText(`Winddirection: ${datathings[cs].wnddir.toFixed(0) % 360} degrees`, 20, 220);
+         ctx.fillText(`Temperature: ${datathings[cs].temp}°C`, 20, 40);
+         ctx.fillText(`Dew point: ${datathings[cs].dewp}°C`, 20, 60);
+         ctx.fillText(`Air pressure at station level: ${datathings[cs].stp} millibar`, 20, 80);
+         ctx.fillText(`Air pressure at sea level: ${datathings[cs].slp} millibar`, 20, 100);
+         ctx.fillText(`Visibility : ${datathings[cs].visib} kilometers`, 20, 120);
+         ctx.fillText(`Wind speed: ${datathings[cs].wdsp} km/h`, 20, 140);
+         ctx.fillText(`Rainfall: ${datathings[cs].prcp} cm`, 20, 160);
+         ctx.fillText(`Snowfall: ${datathings[cs].sndp} cm`, 20, 180);
+         ctx.fillText(`Cloud Cover: ${datathings[cs].cldc} %`, 20, 200);
+         ctx.fillText(`Winddirection: ${datathings[cs].wnddir % 360} degrees`, 20, 220);
 
          var h = [];
          if ((datathings[cs].frshht & 0b100000) == 0b100000) h.push("freezing");
