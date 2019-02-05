@@ -50,6 +50,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
       echo "</tr>";
     }
 
+
     if(isset($_POST["delete"])) {
 
         $number = $_POST['delete'];
@@ -60,4 +61,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     $pdo->exec($del_query);
     }
 // }
+
+}
+
 ?>
