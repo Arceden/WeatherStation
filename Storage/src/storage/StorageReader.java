@@ -27,10 +27,32 @@ public class StorageReader {
         this.records = buffer.remaining()/FRAMESIZE;
     }
 
-    public void query(){
+    public void keepUpToDate(){
+        query("big");
+    }
+
+    public void query(String type) {
+        switch (type){
+            case "all":
+                bigboi();
+                smolboi();
+                break;
+            case "big":
+                bigboi();
+                break;
+            case "smol":
+                smolboi();
+        }
+    }
+
+    private void smolboi(){
+        System.out.println("Generating smolboi");
+    }
+
+    private void bigboi(){
 
         //Request ALL data (as .csv)
-        System.out.println("Amount of records: "+records);
+        System.out.println("Generating bigboi. Amount of records: "+records);
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 
@@ -102,33 +124,34 @@ public class StorageReader {
         private void header(){
             newRow();
 
-            sb.append("stn");
+            sb.append("Station");
             delimiter();
-            sb.append("date");
+            sb.append("Date");
             delimiter();
-            sb.append("time");
+            sb.append("Time");
             delimiter();
-            sb.append("temp");
+            sb.append("Temperature");
             delimiter();
-            sb.append("dewp");
+            sb.append("Dew Point");
             delimiter();
-            sb.append("stp");
+            sb.append("Air Pressure Station Level");
             delimiter();
-            sb.append("slp");
+            sb.append("Air Pressure Sea Level");
             delimiter();
-            sb.append("visib");
+            sb.append("Visibility");
             delimiter();
-            sb.append("wdsp");
+            sb.append("Wind Speed");
             delimiter();
-            sb.append("prcp");
+            sb.append("Rainfall");
             delimiter();
-            sb.append("sndp");
+            sb.append("Snowfall");
             delimiter();
-            sb.append("frshht");
+            sb.append("Status Codes");
             delimiter();
-            sb.append("cldc");
+            sb.append("Cloud Cover");
             delimiter();
-            sb.append("wnddir");
+            sb.append("Wind Direction");
+            delimiter();
 
             endRow();
         }

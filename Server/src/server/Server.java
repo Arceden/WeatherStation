@@ -21,7 +21,7 @@ class Server {
 
     void listen(){
 
-        final ExecutorService stationProcessingPool = Executors.newFixedThreadPool(4);
+        final ExecutorService stationProcessingPool = Executors.newFixedThreadPool(800);
 
         Runnable listenerTask = new Runnable() {
             @Override

@@ -12,11 +12,11 @@ public class Main {
 
         //Init classes
         Server s = new Server(port);
-//        StorageReader reader = new StorageReader();
-//        reader.query();
+        StorageReader reader = new StorageReader();
+        reader.keepUpToDate();
 
         //Execute
-        s.listen();
+//        s.listen();
 
     }
 
