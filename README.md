@@ -1,4 +1,4 @@
-Weather Station project ![Build Status](https://img.shields.io/badge/Current%20Release-v0.3--alpha-yellow.svg)
+Weather Station project ![Build Status](https://img.shields.io/badge/Latest%20Release-v1.0-brightgreen.svg)
 ==============
 This project is a group project for the Hanze University of Applied Siences. Here, we will build a system which can process, store and deliver weather data from weather stations in Botswana.
 The project will make use of a Raspberry Pi 3b as the server which receives the weather data from the stations and a virtual machine with Ubuntu which serves as a remote database and as a webserver.
