@@ -1,1 +1,54 @@
-var PopupHandler=function(){this.item={type:null,element:null,close_button:null,state:!1},this.newPopup=function(a,b){return null==b&&(b=a.id),this.item={type:b,element:a,close_button:this.searchCloseElement(a),state:!1},this},this.searchCloseElement=function(a){for(var b=a.children[0],c=0;c<b.childNodes.length;c++)if("close"==b.children[c].className)return b.children[c];return null},this.open=function(){this.item.element.classList.remove("invisible"),this.item.state=!0},this.close=function(){this.item.element.classList.add("invisible"),this.item.state=!1},this.getElement=function(){return this.item.element},this.getCloseElement=function(){return this.item.close_button}};
+var PopupHandler = function () {
+  this.item = {
+    type: null,
+    element: null,
+    close_button: null,
+    state: false
+  }; //Add popups to the list
+
+  this.newPopup = function (element, type) {
+    if (type == null) type = element.id;
+    this.item = {
+      type: type,
+      element: element,
+      close_button: this.searchCloseElement(element),
+      state: false
+    };
+    return this;
+  }; //Search for the close button
+
+
+  this.searchCloseElement = function (element) {
+    var c = element.children[0];
+
+    for (var x = 0; x < c.childNodes.length; x++) {
+      if (c.children[x].className == "close") {
+        return c.children[x];
+      }
+    }
+
+    return null;
+  }; //Open popup
+
+
+  this.open = function (type) {
+    this.item.element.classList.remove('invisible');
+    this.item.state = true;
+  }; //Close popup
+
+
+  this.close = function (type) {
+    this.item.element.classList.add('invisible');
+    this.item.state = false;
+  }; //Get element
+
+
+  this.getElement = function (type) {
+    return this.item.element;
+  }; //Get close element
+
+
+  this.getCloseElement = function () {
+    return this.item.close_button;
+  };
+};

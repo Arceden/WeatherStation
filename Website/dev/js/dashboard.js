@@ -35,11 +35,11 @@
     new PopupHandler().newPopup(document.getElementById('user_create'))
   );
 
-  listen.newElements(
-      'user_edit',
-      document.getElementsByClassName('call_user_edit'),
-      new PopupHandler().newPopup(document.getElementById('user_edit'))
-  );
+  // listen.newElements(
+  //     'user_edit',
+  //     document.getElementsByClassName('call_user_edit'),
+  //     new PopupHandler().newPopup(document.getElementById('user_edit'))
+  // );
 
   listen.newElements(
       'user_renew',
@@ -49,7 +49,7 @@
 
   listen.applyHandler('login');
   listen.applyHandler('user_create');
-  listen.applyHandler('user_edit');
+  // listen.applyHandler('user_edit');
   listen.applyHandler('user_renew');
 
 })();

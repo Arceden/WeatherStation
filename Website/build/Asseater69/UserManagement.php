@@ -38,16 +38,16 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
            $rank = "Gebruiker";
        }
 
-       echo "<td>".$row['idUser'] . "</td>";
-       echo "<td>".$row['username'] . "</td>";
-       echo "<td>".$rank."</td>";
+        echo "<td>".$row['idUser'] . "</td>";
+        echo "<td>".$row['username'] . "</td>";
+        echo "<td>".$rank."</td>";
 
-      ?>
-     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-     <?php
-      echo "<td>"."<input type='submit' name ='delete' value = ' ".$row['idUser']." '>"."</td>";
-      echo "</form>";
-      echo "</tr>";
+        echo "<form method='post' action='".htmlspecialchars($_SERVER["PHP_SELF"])."'>";
+        echo "<td>"."<input type='submit' name ='delete' value = ' ".$row['idUser']." '>"."</td>";
+        echo "</form>";
+        echo "</tr>";
+        echo "</div>";
+        echo "</div>";
     }
 
 
@@ -62,6 +62,5 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     }
 // }
 
-}
 
 ?>

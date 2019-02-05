@@ -29,9 +29,10 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/templates/dashboard.php');
 //forms
 	include_once($_SERVER['DOCUMENT_ROOT'].'/templates/forms/login_form.php');
 	include_once($_SERVER['DOCUMENT_ROOT'].'/templates/forms/user_create.html');
-	include_once($_SERVER['DOCUMENT_ROOT'].'/Asseater69/UserManagement.php');
 	include_once($_SERVER['DOCUMENT_ROOT'].'/templates/forms/user_renew_password.html');
 
 	include_once($_SERVER['DOCUMENT_ROOT'].'/templates/footer_dashboard.html');
+
+	include_once($_SERVER['DOCUMENT_ROOT'].'/Asseater69/UserManagement.php');
 
 ?>
