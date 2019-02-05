@@ -11,7 +11,7 @@ public class Main {
 
         //Init classes
         Server s = new Server(port);
-        StorageReader reader = new StorageReader();
+        //StorageReader reader = new StorageReader();
         //reader.query();
 
         //Execute

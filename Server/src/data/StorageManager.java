@@ -47,13 +47,10 @@ public class StorageManager {
      * Preform a check to check if all numbers are available to generate a realistic number
      * @param stn - Station Number (Indentifier)
      */
-    private static void finalizeNumbers(int stn){
+    private static void finalizeNumbers(int stn) {
 
         StorageRecord result = new StorageRecord();
         ArrayList<StorageRecord> items = records.get(stn);
-        //String[] check = new String[14];
-        //check = errorlist(check);
-
 
         //These values cant be recalculated easly
         //They have to be checked for errors though
@@ -62,56 +59,56 @@ public class StorageManager {
         result.setTimestamp(items.get(0).getDate(), items.get(0).getTime());
 
         //Sum variables
-        short wnddir=0;
+        short wnddir = 0;
         float
-                temp=0,
-                dewp=0,
-                stp=0,
-                slp=0,
-                visib=0,
-                wdsp=0,
-                prcp=0,
-                sndp=0,
-                cldc=0;
+                temp = 0,
+                dewp = 0,
+                stp = 0,
+                slp = 0,
+                visib = 0,
+                wdsp = 0,
+                prcp = 0,
+                sndp = 0,
+                cldc = 0;
 
         //Sum the rest
         //TODO: Check if this record had an error
-        for(StorageRecord record: items){
+        for (StorageRecord record : items) {
 //            ArrayList<String> errors = record.errorlist();
             String[] errors = record.errorlist();
 
-            for(int i = 0; i <= 14; i++){
-//                if(record.equals(check[i])){
+            for (int i = 0; i <= 11; i++) {
+                if(items.equals(errors[i])) {
                     System.out.println(errors[i]);
-//                    System.out.println("Thi record recieved an invalid value");
+                    System.out.println("This record has received an invalid value");
                 }
-
-                if(i = 14){
-                    wnddir+=record.getWnddir();
-                    temp+=record.getTemp();
-                    dewp+=record.getDewp();
-                    stp+=record.getStp();
-                    slp+=record.getSlp();
-                    visib+=record.getVisib();
-                    wdsp+=record.getWdsp();
-                    prcp+=record.getPrcp();
-                    sndp+=record.getSndp();
-                    cldc+=record.getCldc();
+                if (i == 11) {
+                    wnddir += record.getWnddir();
+                    temp += record.getTemp();
+                    dewp += record.getDewp();
+                    stp += record.getStp();
+                    slp += record.getSlp();
+                    visib += record.getVisib();
+                    wdsp += record.getWdsp();
+                    prcp += record.getPrcp();
+                    sndp += record.getSndp();
+                    cldc += record.getCldc();
                 }
             }
         }
 
+
         //Calculate realistic number
-        result.setTemp(temp/=MAX_RECORDS);
-        result.setDewp(dewp/=MAX_RECORDS);
-        result.setStp(stp/=MAX_RECORDS);
-        result.setSlp(slp/=MAX_RECORDS);
-        result.setVisib(visib/=MAX_RECORDS);
-        result.setWdsp(wdsp/=MAX_RECORDS);
-        result.setPrcp(prcp/=MAX_RECORDS);
-        result.setSndp(sndp/=MAX_RECORDS);
-        result.setCldc(cldc/=MAX_RECORDS);
-        result.setWnddir(wnddir/=MAX_RECORDS);
+        result.setTemp(temp /= MAX_RECORDS);
+        result.setDewp(dewp /= MAX_RECORDS);
+        result.setStp(stp /= MAX_RECORDS);
+        result.setSlp(slp /= MAX_RECORDS);
+        result.setVisib(visib /= MAX_RECORDS);
+        result.setWdsp(wdsp /= MAX_RECORDS);
+        result.setPrcp(prcp /= MAX_RECORDS);
+        result.setSndp(sndp /= MAX_RECORDS);
+        result.setCldc(cldc /= MAX_RECORDS);
+        result.setWnddir(wnddir /= MAX_RECORDS);
 
         //Clear the array again
         records.put(stn, new ArrayList<StorageRecord>(10));
