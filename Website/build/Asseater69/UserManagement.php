@@ -1,4 +1,4 @@
-?php
+<?php
 /**
  * Created by PhpStorm.
  * User: Youri van de Geer
@@ -48,4 +48,4 @@ if(isset($_POST["delete"])) {
 
    $pdo->exec($del_query);
 }
-?><
+?>
