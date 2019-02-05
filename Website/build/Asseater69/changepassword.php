@@ -13,7 +13,7 @@ $session_username = $_SESSION['username'];
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-    $old_password = trim($POST["old_password"]);
+    $old_password = trim($_POST["old_password"]);
     $stmt = $pdo->query("SELECT password FROM user WHERE username = '$session_username'");
     $hashed_password = $stmt->fetch();
     if(empty($old_password)){
