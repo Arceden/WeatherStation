@@ -14,7 +14,7 @@ if($_SESSION["type"] == 1) {
 ?>
 
 <a class="call_new_password" href="javascript:void(0)">Renew Password</a><br/>
-<a href="/Asseater69/logout.php">Sign Out of Your Account</a>
+<a href="/Asseater69/logout.php">Sign Out</a>
 
 <p>Request a data download</p>
 <a href="javascript:void(0)">Request</a>
