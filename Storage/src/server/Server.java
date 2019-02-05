@@ -6,6 +6,8 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Server {
 
@@ -24,11 +26,12 @@ public class Server {
     private class Listener implements Runnable {
 
         private ServerSocket serverSocket;
+        private ExecutorService socketPool = Executors.newFixedThreadPool(10);
 
         Listener(int port){
             try {
                 this.serverSocket = new ServerSocket(port);
-                System.out.println("Storage server listening on port "+port);
+                System.err.println("Storage server listening on port "+port);
             } catch (IOException e){
                 e.printStackTrace();
                 System.exit(1);
@@ -43,8 +46,9 @@ public class Server {
 
                     //Wait and accept a new connection
                     final Socket connection = serverSocket.accept();
-                    DataHandler dataHandler = new DataHandler(connection);
-                    dataHandler.start();
+//                    DataHandler dataHandler = new DataHandler(connection);
+//                    dataHandler.start();
+                    socketPool.submit(new DataHandler(connection));
 
                 }
             } catch (IOException ioe){
@@ -88,7 +92,7 @@ public class Server {
                                 dis.readShort(),
                                 dis.readShort(),
                                 dis.readShort(),
-                                dis.readShort(),
+                                dis.readFloat(),
                                 dis.readShort(),
                                 dis.readByte(),
                                 dis.readShort(),

@@ -13,10 +13,10 @@ public class Main {
         //Init classes
         Server s = new Server(port);
         StorageReader reader = new StorageReader();
-        reader.keepUpToDate();
 
         //Execute
-//        s.listen();
+        s.listen();
+        reader.keepUpToDate();
 
     }
 

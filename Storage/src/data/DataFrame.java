@@ -21,7 +21,7 @@ public class DataFrame {
         short slp,
         short visib,
         short wdsp,
-        short prcp,
+        float prcp,
         short sndp,
         byte frshht,
         short cldc,
@@ -32,7 +32,7 @@ public class DataFrame {
             DataOutputStream out = new DataOutputStream(
                     new BufferedOutputStream(
                             //Weather Station Data Frame
-                            new FileOutputStream("data/test.wsd", true)
+                            new FileOutputStream("data/data.wsd", true)
                     )
             );
 
@@ -72,7 +72,7 @@ public class DataFrame {
     public static MappedByteBuffer loadData(){
 
         try {
-            final FileChannel channel = new FileInputStream("data/test.wsd").getChannel();
+            final FileChannel channel = new FileInputStream("data/data.wsd").getChannel();
             MappedByteBuffer buffer = channel.map(FileChannel.MapMode.READ_ONLY, 0, channel.size());
             return buffer;
         } catch (IOException e){

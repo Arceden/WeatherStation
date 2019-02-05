@@ -6,10 +6,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.nio.MappedByteBuffer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class StorageReader {
 
@@ -28,14 +32,24 @@ public class StorageReader {
     }
 
     public void keepUpToDate(){
-        query("big");
+
+        ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();
+        exec.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                System.err.println("[INFO] Auto regeneration process starting..");
+                loadValues();
+                query("all");
+            }
+        }, 0, 10, TimeUnit.SECONDS);
+
     }
 
     public void query(String type) {
         switch (type){
             case "all":
-                bigboi();
                 smolboi();
+                bigboi();
                 break;
             case "big":
                 bigboi();
@@ -46,21 +60,21 @@ public class StorageReader {
     }
 
     private void smolboi(){
-        System.out.println("Generating smolboi");
-    }
-
-    private void bigboi(){
 
         //Request ALL data (as .csv)
-        System.out.println("Generating bigboi. Amount of records: "+records);
+        System.out.println("[INFO] Generating smolboi.. Amount of records: "+records);
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 
+        //If there are not enough records, cancel the progress
+        if(records<100)
+            return;
+
         try {
-            CSV csv = new CSV();
+            CSV csv = new CSV("smol");
 
             int position = 0;
-            for(int i=0;i<records;i++){
+            for(int i=records-100;i<records;i++){
                 position=(i*FRAMESIZE);
 
                 //Get the correct date/time
@@ -93,8 +107,8 @@ public class StorageReader {
                 csv.newValue(slp);
                 csv.newValue(visib);
                 csv.newValue(wdsp);
-                csv.newValue(prcp);
-                csv.newValue(sndp);
+                csv.newValue(round(prcp, 2));
+                csv.newValue(round(sndp, 1));
                 csv.newValue(frshht);
                 csv.newValue(cldc);
                 csv.newValue(wnddir);
@@ -106,18 +120,87 @@ public class StorageReader {
             csv.save();
 
         } catch (FileNotFoundException e){
-            e.printStackTrace();
+            System.err.println("[ERROR] Could not save smol.csv");
         }
+    }
 
+    private void bigboi() {
+
+        //Request ALL data (as .csv)
+        System.out.println("[INFO] Generating bigboi. Amount of records: " + records);
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+
+        try {
+            CSV csv = new CSV("data");
+
+            int position = 0;
+            for (int i = 0; i < records; i++) {
+                position = (i * FRAMESIZE);
+
+                //Get the correct date/time
+                long timestamp = buffer.getLong(position + 4);
+                Date d = new Date(timestamp);
+
+                int stn = buffer.getInt(position);
+                String date = dateFormat.format(d);
+                String time = timeFormat.format(d);
+                float temp = (float) buffer.getShort(position + 12) / 10;
+                float dewp = (float) buffer.getShort(position + 14) / 10;
+                float stp = (float) buffer.getShort(position + 16) / 10;
+                float slp = (float) buffer.getShort(position + 18) / 10;
+                float visib = (float) buffer.getShort(position + 20) / 10;
+                float wdsp = (float) buffer.getShort(position + 22) / 10;
+                float prcp = buffer.getFloat(position + 24);
+                float sndp = (float) buffer.getShort(position + 28) / 10;
+                byte frshht = buffer.get(position + 30);
+                float cldc = (float) buffer.getShort(position + 31) / 10;
+                short wnddir = buffer.getShort(position + 33);
+
+
+                csv.newRow();
+                csv.newValue(stn);
+                csv.newValue(date);
+                csv.newValue(time);
+                csv.newValue(temp);
+                csv.newValue(dewp);
+                csv.newValue(stp);
+                csv.newValue(slp);
+                csv.newValue(visib);
+                csv.newValue(wdsp);
+                csv.newValue(round(prcp, 2));
+                csv.newValue(round(sndp, 1));
+                csv.newValue(frshht);
+                csv.newValue(cldc);
+                csv.newValue(wnddir);
+
+                csv.endRow();
+
+            }
+
+            csv.save();
+
+        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+            System.err.println("[ERROR] Could not save data.csv");
+        }
+    }
+
+    public static float round(float number, int decimalPlace) {
+        BigDecimal bd = new BigDecimal(number);
+        bd = bd.setScale(decimalPlace, BigDecimal.ROUND_HALF_UP);
+        return bd.floatValue();
     }
 
     private class CSV {
 
         private PrintWriter writer;
         private StringBuilder sb;
+        private String filename;
 
-        CSV() throws FileNotFoundException {
-            writer = new PrintWriter(new File("test.csv"));
+        CSV(String filename) throws FileNotFoundException {
+            this.filename = filename;
+            writer = new PrintWriter(new File("export/"+this.filename+".csv"));
             header();
         }
 
@@ -199,7 +282,7 @@ public class StorageReader {
 
         void save(){
             writer.close();
-            System.out.println("Finished the .csv file!");
+            System.out.println("[INFO] Finished the " + this.filename + ".csv file!");
         }
 
     }
