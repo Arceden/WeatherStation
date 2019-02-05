@@ -16,12 +16,11 @@ public class StorageRecord implements Serializable {
     private String date, time;
     private float temp, dewp, stp, slp, visib, wdsp, prcp, sndp, cldc;
 
-    private ArrayList<String> error_sum = new ArrayList<>();
-    /*
-    public StorageRecord(){
-        error_sum=0;
-    }
-    */
+//    private ArrayList<String> error_sum = new ArrayList<>();
+    private String[] errors = new String[11];
+    private int error_pos;
+
+    //Create a limit to the amount of errors errorlist can hold
     public boolean max_errors(int value){
         if( 14 >= value){
             return true;
@@ -29,14 +28,18 @@ public class StorageRecord implements Serializable {
         return false;
     }
 
+    //Add errors to the errorlist
     public void addError(String value){
-        if(max_errors(error_sum.size())&& max_errors(error_sum.size() + 1)){
-            error_sum.add(value);
-        }
+//        if(max_errors(error_sum.size())&& max_errors(error_sum.size() + 1)){
+//            error_sum.add(value);
+//        }
+        this.errors[this.error_pos] = value;
+        this.error_pos++;
     }
 
-    public ArrayList<String> errors(){
-        return this.error_sum;
+    //Method to call the errorlist by transferring data to an array
+    public String[] errorlist(){
+        return errors;
     }
 
     ////////////////////

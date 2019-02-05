@@ -16,6 +16,7 @@ public class StorageManager {
     private static final int MAX_RECORDS = 10;
     private static Emitter emitter;
 
+
     public StorageManager(){
         records = new HashMap<Integer, ArrayList<StorageRecord>>(8000);
     }
@@ -50,7 +51,8 @@ public class StorageManager {
 
         StorageRecord result = new StorageRecord();
         ArrayList<StorageRecord> items = records.get(stn);
-
+        //String[] check = new String[14];
+        //check = errorlist(check);
 
 
         //These values cant be recalculated easly
@@ -75,17 +77,28 @@ public class StorageManager {
         //Sum the rest
         //TODO: Check if this record had an error
         for(StorageRecord record: items){
+//            ArrayList<String> errors = record.errorlist();
+            String[] errors = record.errorlist();
 
-            wnddir+=record.getWnddir();
-            temp+=record.getTemp();
-            dewp+=record.getDewp();
-            stp+=record.getStp();
-            slp+=record.getSlp();
-            visib+=record.getVisib();
-            wdsp+=record.getWdsp();
-            prcp+=record.getPrcp();
-            sndp+=record.getSndp();
-            cldc+=record.getCldc();
+            for(int i = 0; i <= 14; i++){
+//                if(record.equals(check[i])){
+                    System.out.println(errors[i]);
+//                    System.out.println("Thi record recieved an invalid value");
+                }
+
+                if(i = 14){
+                    wnddir+=record.getWnddir();
+                    temp+=record.getTemp();
+                    dewp+=record.getDewp();
+                    stp+=record.getStp();
+                    slp+=record.getSlp();
+                    visib+=record.getVisib();
+                    wdsp+=record.getWdsp();
+                    prcp+=record.getPrcp();
+                    sndp+=record.getSndp();
+                    cldc+=record.getCldc();
+                }
+            }
         }
 
         //Calculate realistic number

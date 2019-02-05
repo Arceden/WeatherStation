@@ -116,7 +116,7 @@ public class Parser {
             //If Current value equals a Botswana station then set isbotswana to true
             for (int i = 0; i < BotsValues.length; i++) {
                 if (id.equals (BotsValues[i])) {
-                    //System.err.println(i);
+
                     return true;
                 }
             }
