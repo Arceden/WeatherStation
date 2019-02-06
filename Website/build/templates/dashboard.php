@@ -17,10 +17,9 @@ if($_SESSION["type"] == 1) {
 <a href="/Asseater69/logout.php">Sign Out</a>
 
 <p>Request a data download</p>
-<a href="javascript:void(0)">Request</a>
+<a href="javascript:void(0)">Request raw data file</a>
 
-<p>Cool visual graph</p>
-
+<p>Live data from the weather stations</p>
 <select id="dropdown" name="weatherstation" onchange="update()">
 </select>
 <br>
