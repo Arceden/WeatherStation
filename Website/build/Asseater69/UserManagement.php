@@ -6,14 +6,8 @@
  * Time: 12:39
  */
 
-session_start();
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: /index.php");
-    exit;
-}
 
-
-// if($_SESSION["type"] == 1) {
+ if($_SESSION["type"] == 1) {
     include('config.php');
 
 
@@ -60,7 +54,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
     $pdo->exec($del_query);
     }
-// }
+ }
 
 
 ?>
